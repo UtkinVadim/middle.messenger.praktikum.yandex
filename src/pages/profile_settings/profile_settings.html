@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="profile_settings.scss">
+
+{{> back_button }}
+
+<div class="profile_settings">
+    <div class="profile_settings__avatar">
+        <img src="/empty_avatar.svg" alt="Change avatar">
+        <div class="profile_settings__avatar_overlay">Change avatar</div>
+    </div>
+
+    <div class="profile_settings__username">
+        <strong>Name</strong>
+    </div>
+
+    <div class="profile_settings__inputs">
+        {{> input_field label="Email" id="email" editable="true" }}
+        {{> input_field label="Login" id="login" editable="true" }}
+        {{> input_field label="First name" id="first_name" editable="true" }}
+        {{> input_field label="Second name" id="second_name" editable="true" }}
+        {{> input_field label="Display name" id="display_name" editable="true" }}
+        {{> input_field label="Phone" id="phone" editable="true" }}
+    </div>
+
+    <div class="profile_settings__buttons">
+        {{> button label="Save changes" link="/" }}
+        {{> button label="Change password"  link="./change_password/change_password.html" }}
+    </div>
+</div>

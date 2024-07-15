@@ -1,0 +1,31 @@
+@import '../../styles/blocks/auth';
+
+// Main
+.sign_up {
+  @extend %main;
+
+  width: 270px;
+  height: 430px;
+}
+
+// Header
+.sign_up__header_text {
+  @extend %header_text;
+}
+
+// Inputs
+.sign_up__inputs {
+  @extend %inputs;
+
+  input {
+    margin-bottom: 20px;
+  }
+}
+
+// Buttons
+.sign_up__buttons {
+  @extend %buttons;
+
+  margin-top: 0;
+}
+
