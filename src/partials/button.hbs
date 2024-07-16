@@ -1,4 +1,8 @@
 <button class="blue-button"
+    {{#if type}}
+        type="{{ type }}"
+    {{/if}}
+
         onclick="location.href='{{#if link}}{{link}}{{else}}/{{/if}}';">
     {{ label }}
 </button>

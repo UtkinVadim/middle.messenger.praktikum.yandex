@@ -1,15 +1,21 @@
-<link rel="stylesheet" href="sign_in.scss">
+<main>
+    <link rel="stylesheet" href="sign_in.scss">
 
-<div class="sign_in">
-    <h3 class="sign_in__header_text">Super messenger</h3>
+    <div class="sign_in">
+        <h3 class="sign_in__header_text">Super messenger</h3>
 
-    <div class="sign_in__inputs">
-        {{> input_field label="Login" id="login" }}
-        {{> input_field label="Password" id="password" }}
+        <form>
+            <div class="sign_in__inputs">
+                {{> input_field label="Login" id="login" }}
+                {{> input_field label="Password" id="password" }}
+            </div>
+            <div class="sign_in__buttons">
+                {{> button label="Sign In" type="submit" }}
+            </div>
+        </form>
+
+        <div class="sign_in__buttons sign_in__buttons__sign_up">
+            {{> button label="Sign Up" }}
+        </div>
     </div>
-
-    <div class="sign_in__buttons">
-        {{> button label="Sign In" }}
-        {{> button label="Sign Up" }}
-    </div>
-</div>
+</main>
