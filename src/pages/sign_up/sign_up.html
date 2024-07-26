@@ -1,0 +1,19 @@
+<main>
+    <link rel="stylesheet" href="sign_up.scss">
+    <div class="sign_up">
+        <h3 class="sign_up__header_text">Sign Up</h3>
+        <form>
+            <div class="sign_up__inputs">
+                {{> input_field label="First name" id="first_name" }}
+                {{> input_field label="Second name" id="second_name" }}
+                {{> input_field label="Login" id="login" }}
+                {{> input_field label="Email" id="email" }}
+                {{> input_field label="Password" id="password" }}
+                {{> input_field label="Phone" id="phone" }}
+            </div>
+            <div class="sign_up__buttons">
+                {{> button label="Create profile" type="submit" }}
+            </div>
+        </form>
+    </div>
+</main>

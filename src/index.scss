@@ -1,0 +1,15 @@
+@import 'styles/mixins';
+
+body {
+   font-family: 'Inter', sans-serif;
+}
+
+#app {
+   @extend %on-center-one-column;
+
+   margin-top: 50px;
+
+   a {
+      margin-top: 10px;
+   }
+}

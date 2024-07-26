@@ -1,0 +1,21 @@
+<button class="blue-button"
+    {{#if type}}
+        type="{{ type }}"
+    {{/if}}
+
+        onclick="location.href='{{#if link}}{{link}}{{else}}/{{/if}}';">
+    {{ label }}
+</button>
+
+<style>
+    .blue-button {
+        margin-bottom: 5px;
+
+        background: #3FD7EC;
+
+        border: none;
+        border-radius: 10px;
+
+        font-size: 12px;
+    }
+</style>
