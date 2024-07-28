@@ -23,7 +23,7 @@ export default defineConfig({
     },
 
     plugins: [handlebars({
-        partialDirectory: resolve(__dirname, 'src/partials'),
+        partialDirectory: resolve(__dirname, 'src/components'),
         context: {
             chats: [
                 {
