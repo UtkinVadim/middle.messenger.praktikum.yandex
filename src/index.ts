@@ -1,10 +1,16 @@
-import Link from "./components/Link";
+import Chat from "./pages/Chat";
 import SignIn from "./pages/SignIn";
 import SignUp from './pages/SignUp';
+import Link from "./components/Link";
 import ErrorPage from "./pages/Error";
 import IndexLayout from "./layout/Index";
+import LastChats from "./pages/LastChats";
 import Navigation from "./pages/Navigation";
+import ChatCard from "./components/ChatCard";
 import {default as renderDom} from './utils/render';
+import ProfileSettings from "./pages/ProfileSettings";
+import ChatCardMessage from "./components/ChatCard/Message";
+
 
 
 const signIn = new SignIn('main');
@@ -17,6 +23,28 @@ const error500 = new ErrorPage('main', {
     error_code: '500',
     description: 'Something went wrong'
 });
+const profileSettings = new ProfileSettings();
+
+const lastChats = new LastChats('main', {
+    chat_cards: [
+        new ChatCard('div', {
+            companion: "Имя",
+            lastMessages: [
+                new ChatCardMessage('p', {text: "Привет"}),
+                new ChatCardMessage('p', {text: "Привет!"})
+            ],
+            newMessagesCount: 1
+        }),
+        new ChatCard('div', {
+            companion: "Имя2",
+            lastMessages: [],
+            newMessagesCount: 0
+        }),
+    ]
+});
+
+const chat = new Chat();
+
 
 const navigation = new Navigation(
     'ul',
@@ -46,9 +74,24 @@ const navigation = new Navigation(
                 contentPage: error500,
             }),
 
-            // new Link('li', {url: '/pages/profile_settings/profile_settings.html', title: 'Настройки пользователя'}),
-            // new Link('li', {url: '/pages/chat_list/chat_list.html', title: 'Список чатов'}),
-            // new Link('li', {url: '/pages/chat/chat.html', title: 'Лента переписки'}),
+            new Link('li', {
+                url: '/',
+                title: 'Настройки пользователя',
+                contentPage: profileSettings,
+            }),
+
+            new Link('li', {
+                url: '/',
+                title: 'Список чатов',
+                contentPage: lastChats,
+            }),
+
+            new Link('li', {
+                url: '/',
+                title: 'Лента переписки',
+                contentPage: chat,
+            }),
+
         ],
     }
 );
