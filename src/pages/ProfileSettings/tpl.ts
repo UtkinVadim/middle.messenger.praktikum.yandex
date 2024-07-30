@@ -11,17 +11,8 @@ const tpl: string = `
         <strong>Name</strong>
     </div>
 
-    <form>
-        <div class="profile_settings__inputs">
-            {{{inputs}}}
-            
-        </div>
+    {{{inputForm}}}
 
-        <div class="profile_settings__buttons profile_settings__buttons__submit_button">
-            {{{saveChangesButton}}}
-            
-        </div>
-    </form>
     <div class="profile_settings__buttons profile_settings__buttons__change_password">
         {{{changePasswordButton}}}
     </div>

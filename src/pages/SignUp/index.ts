@@ -5,11 +5,14 @@ import Block from '../../services/Block';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {PropsAndChildren} from '../../types/Block';
+import InputForm from "../../components/InputForm";
 
 export default class SignUp extends Block {
     constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
-            propsAndChildren = {
-                ...propsAndChildren,
+        propsAndChildren = {
+            ...propsAndChildren,
+            inputForm: new InputForm('form', {
+                formId: 'signUpForm',
                 inputs: [
                     new Input('div', {
                         label: 'First name',
@@ -36,8 +39,11 @@ export default class SignUp extends Block {
                         id: 'phone'
                     }),
                 ],
-                signUp: new Button('button', {label: 'Create profile', type: 'submit'})
-            }
+                inputsContainerClass: 'sign_up__inputs',
+                submitButton: new Button('button', {label: 'Create profile', type: 'submit'}),
+                submitContainerClass: 'sign_up__buttons'
+            }),
+        }
         super(tagName, propsAndChildren);
     }
 
