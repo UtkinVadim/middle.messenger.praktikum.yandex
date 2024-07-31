@@ -173,7 +173,7 @@ export default abstract class Block {
     public abstract render(): string;
 
     public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
-        console.log(oldProps, newProps); // Пока что только вывод в логи, в последующем здесь будет логика сравнения
+        // console.log(oldProps, newProps);
         return true;
     }
 

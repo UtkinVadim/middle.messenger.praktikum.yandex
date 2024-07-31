@@ -10,6 +10,7 @@ import ChatCard from "./components/ChatCard";
 import {default as renderDom} from './utils/render';
 import ProfileSettings from "./pages/ProfileSettings";
 import ChatCardMessage from "./components/ChatCard/Message";
+import ChatMessage from "./components/ChatMessage";
 
 
 
@@ -43,7 +44,12 @@ const lastChats = new LastChats('main', {
     ]
 });
 
-const chat = new Chat();
+const chat = new Chat('div', {
+    messages: [
+        new ChatMessage('div', {text: 'Hello', type: 'sent'}),
+        new ChatMessage('div', {text: 'Hi', type: 'received'}),
+    ]
+});
 
 
 const navigation = new Navigation(

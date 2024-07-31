@@ -10,6 +10,7 @@ const tpl: string = `
 </div>
 
 <div class="chat__messages">
+    {{{messages}}}
 </div>
 
 <div class="chat__footer">

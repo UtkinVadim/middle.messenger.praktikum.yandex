@@ -1,0 +1,20 @@
+.message {
+  padding-top: 10px;
+
+  span {
+    padding: 5px 10px;
+
+    border-radius: 25px;
+    background-color: #bab5b5;
+  }
+}
+
+.sent {
+  padding-right: 10px;
+  text-align: right;
+}
+
+.received {
+  padding-left: 10px;
+  text-align: left;
+}

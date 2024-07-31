@@ -1,6 +1,6 @@
 .chat {
-  width: 1280px;
-  height: 720px;
+  width: 800px;
+  height: 600px;
 
   margin-left: 60px;
 
@@ -38,6 +38,8 @@
 
   .chat__messages {
     flex: 1 0 auto;
+
+    margin-top: 80px;
   }
 
   .chat__footer {
