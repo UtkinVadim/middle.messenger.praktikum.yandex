@@ -23,7 +23,8 @@ export default class SendButton extends Block {
                     event.preventDefault();
                     event.stopPropagation();
 
-                    let message: string = (document.querySelector('#message') as HTMLInputElement)?.value;
+                    let messageInput: HTMLInputElement = document.querySelector('#message') as HTMLInputElement;
+                    let message: string = messageInput.value;
 
                     if (!message || !message.trim()) {
                         return
@@ -41,6 +42,7 @@ export default class SendButton extends Block {
                     }
 
                     messages.append(newMessage.getContent());
+                    messageInput.value = '';
                 }
             }
         })
