@@ -2,10 +2,20 @@ import './style.scss';
 
 import tpl from './tpl';
 import Block from '../../services/Block';
-import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {PropsAndChildren} from '../../types/Block';
 import InputForm from "../../components/InputForm";
+import Input from '../../components/InputWithLabel/Input';
+import InputWithLabel from '../../components/InputWithLabel';
+import {
+    inputValidator,
+    validateName,
+    validateLogin,
+    validateEmail,
+    validatePhone,
+    validatePassword
+} from "../../utils/validations.ts";
+
 
 export default class SignUp extends Block {
     constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
@@ -14,29 +24,71 @@ export default class SignUp extends Block {
             inputForm: new InputForm('form', {
                 formId: 'signUpForm',
                 inputs: [
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'First name',
-                        id: 'first_name'
+                        input: new Input('input', {
+                            id: 'first_name',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validateName)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Second name',
-                        id: 'second_name'
+                        input: new Input('input', {
+                            id: 'second_name',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validateName)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Login',
-                        id: 'login'
+                        input: new Input('input', {
+                            id: 'login',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validateLogin)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Email',
-                        id: 'email'
+                        input: new Input('input', {
+                            id: 'email',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validateEmail)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Password',
-                        id: 'password'
+                        input: new Input('input', {
+                            id: 'password',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validatePassword)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Phone',
-                        id: 'phone'
+                        input: new Input('input', {
+                            id: 'phone',
+                            editable: false,
+                            events: {
+                                blur: inputValidator(validatePhone)
+                            }
+                        })
+
                     }),
                 ],
                 inputsContainerClass: 'sign_up__inputs',

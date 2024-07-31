@@ -1,0 +1,20 @@
+input {
+  border: none;
+  outline: none;
+
+  display: block;
+}
+
+.editable-field {
+  background-image: url('/pencil.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+input:invalid {
+  border-bottom: 1.5px solid red;
+}
+
+input:valid {
+  border-bottom: 1.5px solid #000000;
+}

@@ -1,18 +1,17 @@
 import './style.scss';
 
 import tpl from './tpl';
+import Input from "./Input";
 import Block from '../../services/Block';
 import { PropsAndChildren } from '../../types/Block';
 
 interface IPropsAndChildrenInput extends
     PropsAndChildren {
-    id: string;
     label: string;
-    inputType?: string;
-    editable?: boolean;
+    input: Input;
 }
 
-export default class Input extends Block {
+export default class InputWithLabel extends Block {
     constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenInput) {
         super(tagName, propsAndChildren);
     }

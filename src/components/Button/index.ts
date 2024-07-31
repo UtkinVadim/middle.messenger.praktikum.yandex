@@ -22,11 +22,11 @@ export default class Button extends Block {
             propsAndChildren.attr['type'] = propsAndChildren.type;
         }
 
-        if (propsAndChildren.link) {
-            if (!propsAndChildren.events) {
-                propsAndChildren.events = {}
-            }
+        if (!propsAndChildren.events) {
+            propsAndChildren.events = {}
+        }
 
+        if (propsAndChildren.link) {
             propsAndChildren.events['click'] = function (event: PointerEvent) {
                 window.page.setProps({content: propsAndChildren.link});
                 event.preventDefault();

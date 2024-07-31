@@ -2,13 +2,20 @@ import './style.scss';
 
 import tpl from './tpl';
 import Block from '../../services/Block';
-import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChangePassword from "../ChangePassword";
 import {PropsAndChildren} from '../../types/Block';
 import InputForm from "../../components/InputForm";
 import BackButton from "../../components/BackButton";
-
+import Input from "../../components/InputWithLabel/Input";
+import InputWithLabel from "../../components/InputWithLabel";
+import {
+    inputValidator,
+    validateName,
+    validateLogin,
+    validateEmail,
+    validatePhone
+} from "../../utils/validations.ts";
 
 export default class ProfileSettings extends Block {
     constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
@@ -22,34 +29,68 @@ export default class ProfileSettings extends Block {
             inputForm: new InputForm('form', {
                 formId: 'profileSettingsForm',
                 inputs: [
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Email',
-                        id: 'email',
-                        editable: true,
+                        input: new Input('input', {
+                            id: 'email',
+                            editable: true,
+                            events: {
+                                blur: inputValidator(validateEmail)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Login',
-                        id: 'login',
-                        editable: true,
+                        input: new Input('input', {
+                            id: 'login',
+                            editable: true,
+                            events: {
+                                blur: inputValidator(validateLogin)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'First name',
-                        id: 'first_name',
-                        editable: true,
+                        input: new Input('input', {
+                            id: 'first_name',
+                            editable: true,
+                            events: {
+                                blur: inputValidator(validateName)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Second name',
-                        id: 'second_name',
-                        editable: true,
+                        input: new Input('input', {
+                            id: 'second_name',
+                            editable: true,
+                            events: {
+                                blur: inputValidator(validateName)
+                            }
+                        })
+
                     }),
-                    new Input('div', {
+                    new InputWithLabel('div', {
                         label: 'Display name',
-                        id: 'display_name',
-                        editable: true,
-                    }), new Input('div', {
+                        input: new Input('input', {
+                            id: 'display_name',
+                            editable: true,
+                        })
+
+                    }),
+                    new InputWithLabel('div', {
                         label: 'Phone',
-                        id: 'phone',
-                        editable: true,
+                        input: new Input('input', {
+                            id: 'phone',
+                            editable: true,
+                            events: {
+                                blur: inputValidator(validatePhone)
+                            }
+                        })
+
                     }),
                 ],
                 inputsContainerClass: 'profile_settings__inputs',

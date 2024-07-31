@@ -14,7 +14,6 @@ export default class BackButton extends Block {
         propsAndChildren.attr['class'] = 'back-button';
         propsAndChildren.attr['onclick'] = "location.href='/';";
 
-
         super(tagName, propsAndChildren);
     }
 
