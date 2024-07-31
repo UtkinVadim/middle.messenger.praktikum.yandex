@@ -25,6 +25,15 @@ export function validatePhone(phone: string): boolean {
 
 
 export function inputValidator(validateFunction: (input: string) => boolean) {
+
+    const invalidMessage: Record<string, string> = {
+        validateName: '- Первая буква должна быть заглавной\n- Без пробелов и без цифр\n- Нет спецсимволов (допустим только дефис).',
+        validateLogin: '- От 3 до 20 символов\n- Латиница\n- Может содержать цифры, но не состоять из них\n- Без пробелов и спецсимволов (допустимы дефис и нижнее подчёркивание).',
+        validateEmail: 'Неправильный email',
+        validatePassword: '- От 8 до 40 символов\n- Обязательно хотя бы одна заглавная буква и цифра',
+        validatePhone: 'Неправильный телефон'
+    }
+
     return function (event: FocusEvent) {
         if (!event.target) {
             return;
@@ -39,7 +48,7 @@ export function inputValidator(validateFunction: (input: string) => boolean) {
         const is_valid = validateFunction(input.value);
 
         if (!is_valid) {
-            input.setCustomValidity('Wrong value');
+            input.setCustomValidity(invalidMessage[validateFunction.name]);
         } else {
             input.setCustomValidity('');
         }
