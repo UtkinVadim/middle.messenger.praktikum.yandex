@@ -1,31 +1,10 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "useDefineForClassFields": true,
-    "module": "commonjs",
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
+    "compilerOptions": {
     "outDir": "dist",
+    "target": "es2016",
     "declaration": false,
+    "module": "commonjs",
     "strictNullChecks": true,
-    "sourceMap": true
-  },
-  "include": [
-    "src"
-  ]
+    "sourceMap": true,
+   }
 }
