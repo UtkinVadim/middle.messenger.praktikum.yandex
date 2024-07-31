@@ -1,7 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus.ts';
-import { PropsAndChildren } from '../types/Block';
+import type { PropsAndChildren } from '../types/Block.d.ts';
 
 type BlockEvents = {
     INIT: string,
@@ -41,7 +41,7 @@ export default abstract class Block {
   protected _setUpdate: boolean = true;
 
   constructor(tagName: string = 'div', propsAndChildren: PropsAndChildren = {}) {
-    const { children, props, lists } = this._getChildren(propsAndChildren);
+    const { children, props, lists } = Block._getChildren(propsAndChildren);
 
     this._meta = { tagName, props };
 
@@ -76,7 +76,7 @@ export default abstract class Block {
     return element;
   }
 
-  protected _getChildren(propsAndChildren: PropsAndChildren): {
+  static _getChildren(propsAndChildren: PropsAndChildren): {
         children: ChildrenProp,
         props: BaseProp,
         lists: ListProp
@@ -99,6 +99,7 @@ export default abstract class Block {
   }
 
   protected _makePropsProxy(props: ChildrenProp | BaseProp | ListProp): ChildrenProp | BaseProp | ListProp | any {
+    /* eslint-disable @typescript-eslint/no-this-alias */
     const self: Block = this;
 
         type Target = ChildrenProp | BaseProp | ListProp;
@@ -112,6 +113,7 @@ export default abstract class Block {
 
           set(target: Target, prop: string, value: Value): boolean {
             if (target[prop] !== value) {
+              /* eslint-disable no-param-reassign */
               target[prop] = value;
               self._setUpdate = true;
             }
@@ -122,7 +124,7 @@ export default abstract class Block {
 
   // FLOW_CDM
   protected _componentDidMount(): void {
-    this.componentDidMount();
+    Block.componentDidMount();
     Object.values(this._children).forEach((child) => {
       child.dispatchComponentDidMount();
     });
@@ -173,14 +175,16 @@ export default abstract class Block {
   }
 
     // Public
-    public abstract render(): string;
+    public abstract render(): HTMLElement;
 
-    // @ts-ignore
+    /* eslint-disable class-methods-use-this */
     public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
+      /* eslint-disable no-console */
+      console.log(oldProps, newProps); // Заглушка. В будущем будет реализована логика проверки.
       return true;
     }
 
-    public componentDidMount(): void {
+    static componentDidMount(): void {
     }
 
     public dispatchComponentDidMount(): void {
@@ -246,7 +250,7 @@ export default abstract class Block {
       this._setUpdate = false;
       const oldValue = { ...this._props };
 
-      const { children, props, lists } = this._getChildren(newProps);
+      const { children, props, lists } = Block._getChildren(newProps);
 
       if (Object.values(children).length) {
         Object.assign(this._children, children);

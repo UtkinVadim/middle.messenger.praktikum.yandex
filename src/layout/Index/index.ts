@@ -1,13 +1,13 @@
-import Block from '../../services/Block';
+import Block from '../../services/Block.ts';
 
-import { PropsAndChildren } from '../../types/Block';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsIndex extends PropsAndChildren {
     content: Block;
 }
 
 export default class Index extends Block {
-  constructor(tagName: string = 'div', propsAndChildren: IPropsIndex) {
+  constructor(propsAndChildren: IPropsIndex, tagName: string = 'div') {
     super(tagName, propsAndChildren);
   }
 

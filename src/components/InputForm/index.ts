@@ -1,8 +1,8 @@
-import tpl from './tpl';
-import Button from '../Button';
-import Block from '../../services/Block';
-import InputWithLabel from '../InputWithLabel';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import Button from '../Button/index.ts';
+import Block from '../../services/Block.ts';
+import InputWithLabel from '../InputWithLabel/index.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenInputForm extends PropsAndChildren {
     formId: string;
@@ -15,8 +15,8 @@ interface IPropsAndChildrenInputForm extends PropsAndChildren {
 }
 
 export default class InputForm extends Block {
-  constructor(tagName: string = 'form', propsAndChildren: IPropsAndChildrenInputForm) {
-    propsAndChildren = {
+  constructor(propsAndChildren: IPropsAndChildrenInputForm, tagName: string = 'form') {
+    const props = {
       ...propsAndChildren,
       attr: { id: propsAndChildren.formId },
       events: {
@@ -28,7 +28,7 @@ export default class InputForm extends Block {
 
           const formData: Record<string, string> = {};
           if (form) {
-            for (let i = 0; i < form.length; i++) {
+            for (let i = 0; i < form.length; i += 1) {
               const input = form.elements[i] as HTMLInputElement;
               if (input.name && input.value) {
                 formData[input.name] = input.value;
@@ -39,7 +39,7 @@ export default class InputForm extends Block {
       },
     };
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

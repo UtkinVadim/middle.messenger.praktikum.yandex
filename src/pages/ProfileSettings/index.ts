@@ -1,14 +1,14 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import Button from '../../components/Button';
-import ChangePassword from '../ChangePassword';
-import { PropsAndChildren } from '../../types/Block';
-import InputForm from '../../components/InputForm';
-import BackButton from '../../components/BackButton';
-import Input from '../../components/InputWithLabel/Input';
-import InputWithLabel from '../../components/InputWithLabel';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import Button from '../../components/Button/index.ts';
+import ChangePassword from '../ChangePassword/index.ts';
+import InputForm from '../../components/InputForm/index.ts';
+import BackButton from '../../components/BackButton/index.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
+import Input from '../../components/InputWithLabel/Input/index.ts';
+import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import {
   inputValidator,
   validateName,
@@ -19,19 +19,19 @@ import {
 
 export default class ProfileSettings extends Block {
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
-    propsAndChildren = {
+    const props = {
       ...propsAndChildren,
       backButton: new BackButton(),
-      changePasswordButton: new Button('button', {
+      changePasswordButton: new Button({
         label: 'Change password',
         link: new ChangePassword(),
       }),
-      inputForm: new InputForm('form', {
+      inputForm: new InputForm({
         formId: 'profileSettingsForm',
         inputs: [
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Email',
-            input: new Input('input', {
+            input: new Input({
               id: 'email',
               editable: true,
               events: {
@@ -40,9 +40,9 @@ export default class ProfileSettings extends Block {
             }),
 
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Login',
-            input: new Input('input', {
+            input: new Input({
               id: 'login',
               editable: true,
               events: {
@@ -51,9 +51,9 @@ export default class ProfileSettings extends Block {
             }),
 
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'First name',
-            input: new Input('input', {
+            input: new Input({
               id: 'first_name',
               editable: true,
               events: {
@@ -62,9 +62,9 @@ export default class ProfileSettings extends Block {
             }),
 
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Second name',
-            input: new Input('input', {
+            input: new Input({
               id: 'second_name',
               editable: true,
               events: {
@@ -73,17 +73,17 @@ export default class ProfileSettings extends Block {
             }),
 
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Display name',
-            input: new Input('input', {
+            input: new Input({
               id: 'display_name',
               editable: true,
             }),
 
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Phone',
-            input: new Input('input', {
+            input: new Input({
               id: 'phone',
               editable: true,
               events: {
@@ -94,7 +94,7 @@ export default class ProfileSettings extends Block {
           }),
         ],
         inputsContainerClass: 'profile_settings__inputs',
-        submitButton: new Button('button', {
+        submitButton: new Button({
           label: 'Save changes',
           type: 'submit',
         }),
@@ -102,7 +102,7 @@ export default class ProfileSettings extends Block {
       }),
     };
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

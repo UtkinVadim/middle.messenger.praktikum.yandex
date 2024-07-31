@@ -1,11 +1,11 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
-import BackButton from '../../components/BackButton';
-import SendButton from '../../components/SendButton';
-import ChatMessage from '../../components/ChatMessage';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
+import BackButton from '../../components/BackButton/index.ts';
+import SendButton from '../../components/SendButton/index.ts';
+import ChatMessage from '../../components/ChatMessage/index.ts';
 
 interface IPropsAndChildrenChat extends PropsAndChildren {
     messages?: Array<ChatMessage>;
@@ -13,7 +13,7 @@ interface IPropsAndChildrenChat extends PropsAndChildren {
 
 export default class Chat extends Block {
   constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenChat = {}) {
-    propsAndChildren = {
+    const props = {
       ...propsAndChildren,
       sendButton: new SendButton(),
       backButton: new BackButton(),
@@ -22,7 +22,7 @@ export default class Chat extends Block {
       },
     };
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

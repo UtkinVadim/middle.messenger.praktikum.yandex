@@ -1,19 +1,20 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 export default class BackButton extends Block {
   constructor(tagName: string = 'button', propsAndChildren: PropsAndChildren = {}) {
-    if (!propsAndChildren.attr) {
-      propsAndChildren.attr = {};
+    const props = { ...propsAndChildren };
+    if (!props.attr) {
+      props.attr = {};
     }
 
-    propsAndChildren.attr.class = 'back-button';
-    propsAndChildren.attr.onclick = "location.href='/';";
+    props.attr.class = 'back-button';
+    props.attr.onclick = "location.href='/';";
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

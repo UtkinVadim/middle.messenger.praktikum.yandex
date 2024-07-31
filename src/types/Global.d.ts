@@ -2,7 +2,7 @@ import Block from '../services/Block.ts';
 
 declare global {
     interface HTMLElement {
-        content: any;
+        content: HTMLElement;
     }
 }
 

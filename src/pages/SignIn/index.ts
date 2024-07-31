@@ -1,24 +1,24 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import Button from '../../components/Button';
-import { PropsAndChildren } from '../../types/Block';
-import InputForm from '../../components/InputForm';
-import Input from '../../components/InputWithLabel/Input';
-import InputWithLabel from '../../components/InputWithLabel';
-import { inputValidator, validateLogin, validatePassword } from '../../utils/validations';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import Button from '../../components/Button/index.ts';
+import InputForm from '../../components/InputForm/index.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
+import Input from '../../components/InputWithLabel/Input/index.ts';
+import InputWithLabel from '../../components/InputWithLabel/index.ts';
+import { inputValidator, validateLogin, validatePassword } from '../../utils/validations.ts';
 
 export default class SignIn extends Block {
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
-    propsAndChildren = {
+    const props = {
       ...propsAndChildren,
-      inputForm: new InputForm('form', {
+      inputForm: new InputForm({
         formId: 'signInForm',
         inputs: [
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Login',
-            input: new Input('input', {
+            input: new Input({
               id: 'login',
               editable: false,
               events: {
@@ -26,9 +26,9 @@ export default class SignIn extends Block {
               },
             }),
           }),
-          new InputWithLabel('div', {
+          new InputWithLabel({
             label: 'Password',
-            input: new Input('input', {
+            input: new Input({
               id: 'password',
               editable: false,
               events: {
@@ -38,12 +38,12 @@ export default class SignIn extends Block {
           }),
         ],
         inputsContainerClass: 'sign_in__inputs',
-        submitButton: new Button('button', { label: 'Sign In', type: 'submit' }),
+        submitButton: new Button({ label: 'Sign In', type: 'submit' }),
         submitContainerClass: 'sign_in__buttons',
       }),
-      signUp: new Button('button', { label: 'Sign Up' }),
+      signUp: new Button({ label: 'Sign Up' }),
     };
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

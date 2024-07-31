@@ -1,8 +1,8 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../../services/Block';
-import { PropsAndChildren } from '../../../types/Block';
+import tpl from './tpl.ts';
+import Block from '../../../services/Block.ts';
+import type { PropsAndChildren } from '../../../types/Block.d.ts';
 
 interface IPropsAndChildrenInput extends PropsAndChildren {
     id: string;
@@ -11,18 +11,19 @@ interface IPropsAndChildrenInput extends PropsAndChildren {
 }
 
 export default class Input extends Block {
-  constructor(tagName: string = 'input', propsAndChildren: IPropsAndChildrenInput) {
-    propsAndChildren.attr = {};
+  constructor(propsAndChildren: IPropsAndChildrenInput, tagName: string = 'input') {
+    const props = { ...propsAndChildren };
+    props.attr = {};
 
-    if (propsAndChildren.attr.editable) {
-      propsAndChildren.attr.class = 'editable-field';
+    if (props.attr.editable) {
+      props.attr.class = 'editable-field';
     }
 
-    propsAndChildren.attr.type = propsAndChildren.inputType ? propsAndChildren.inputType : 'text';
-    propsAndChildren.attr.id = propsAndChildren.id;
-    propsAndChildren.attr.name = propsAndChildren.id;
+    props.attr.type = props.inputType ? props.inputType : 'text';
+    props.attr.id = props.id;
+    props.attr.name = props.id;
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

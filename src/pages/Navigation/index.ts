@@ -1,4 +1,4 @@
-import Block from '../../services/Block';
+import Block from '../../services/Block.ts';
 
 export default class Navigation extends Block {
   render() {

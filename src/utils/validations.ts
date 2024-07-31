@@ -1,5 +1,8 @@
 export function validateName(name: string): string {
-  const invalidMessage: string = '- Первая буква должна быть заглавной\n- Без пробелов и без цифр\n- Нет спецсимволов (допустим только дефис).';
+  const invalidMessage: string = `
+  - Первая буква должна быть заглавной\n
+  - Без пробелов и без цифр
+  \n- Нет спецсимволов (допустим только дефис).`;
 
   const regex: RegExp = /^[A-ZА-Я][A-ZА-Яa-zа-я-\s]*$/;
   const isValid: boolean = regex.test(name);
@@ -8,7 +11,11 @@ export function validateName(name: string): string {
 }
 
 export function validateLogin(login: string): string {
-  const invalidMessage: string = '- От 3 до 20 символов\n- Латиница\n- Может содержать цифры, но не состоять из них\n- Без пробелов и спецсимволов (допустимы дефис и нижнее подчёркивание).';
+  const invalidMessage: string = `
+  - От 3 до 20 символов\n
+  - Латиница\n
+  - Может содержать цифры, но не состоять из них\n
+  - Без пробелов и спецсимволов (допустимы дефис и нижнее подчёркивание).`;
 
   const regex: RegExp = /^(?!.*[\s])(?!^\d*$)[a-zA-Z\d-_]{3,20}$/;
   const isValid: boolean = regex.test(login);
@@ -26,7 +33,9 @@ export function validateEmail(email: string): string {
 }
 
 export function validatePassword(password: string): string {
-  const invalidMessage: string = '- От 8 до 40 символов\n- Обязательно хотя бы одна заглавная буква и цифра';
+  const invalidMessage: string = `
+  - От 8 до 40 символов\n
+  - Обязательно хотя бы одна заглавная буква и цифра`;
 
   const regex: RegExp = /^(?=.*[A-ZА-Я])(?=.*\d)[A-Za-zА-Яа-я\d]{8,40}$/;
   const isValid: boolean = regex.test(password);
@@ -44,8 +53,7 @@ export function validatePhone(phone: string): string {
 }
 
 export function inputValidator(validateFunction: (input: string) => string) {
-  return function validator (event: FocusEvent) {
-
+  return function validator(event: FocusEvent) {
     if (!event.target) {
       return;
     }

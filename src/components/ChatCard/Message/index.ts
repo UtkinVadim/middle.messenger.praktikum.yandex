@@ -1,22 +1,23 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../../services/Block';
-import { PropsAndChildren } from '../../../types/Block';
+import tpl from './tpl.ts';
+import Block from '../../../services/Block.ts';
+import type { PropsAndChildren } from '../../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCardMessage extends PropsAndChildren {
     text: string;
 }
 
 export default class ChatCardMessage extends Block {
-  constructor(tagName: string = 'p', propsAndChildren: IPropsAndChildrenChatCardMessage) {
-    if (!propsAndChildren.attr) {
-      propsAndChildren.attr = {};
+  constructor(propsAndChildren: IPropsAndChildrenChatCardMessage, tagName: string = 'p') {
+    const props = { ...propsAndChildren };
+    if (!props.attr) {
+      props.attr = {};
     }
 
-    propsAndChildren.attr.class = 'chat_card__last_messages__message_text';
+    props.attr.class = 'chat_card__last_messages__message_text';
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

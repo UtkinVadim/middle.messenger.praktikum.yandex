@@ -1,13 +1,23 @@
 {
   "extends": [
-    "airbnb",
+    "airbnb-base",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "overrides": [
     {
-      "files": ["**/*.ts"]
+      "files": [
+        "**/*.ts"
+      ]
     }
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-underscore-dangle": "off",
+    "max-len": [2, 120],
+    "no-use-before-define": "off"
+  }
 }

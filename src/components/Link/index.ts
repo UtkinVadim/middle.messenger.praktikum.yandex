@@ -1,6 +1,6 @@
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenLink extends PropsAndChildren {
     title: string;
@@ -8,18 +8,19 @@ interface IPropsAndChildrenLink extends PropsAndChildren {
 }
 
 export default class Link extends Block {
-  constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenLink) {
-    if (!propsAndChildren.events) {
-      propsAndChildren.events = {};
+  constructor(propsAndChildren: IPropsAndChildrenLink, tagName: string = 'li') {
+    const props = { ...propsAndChildren };
+    if (!props.events) {
+      props.events = {};
     }
 
-    propsAndChildren.events.click = function (event: PointerEvent) {
-      window.page.setProps({ content: propsAndChildren.contentPage });
+    props.events.click = function redirect(event: PointerEvent) {
+      window.page.setProps({ content: props.contentPage });
       event.preventDefault();
       event.stopPropagation();
     };
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

@@ -1,1 +1,8 @@
+# Project files
+*.scss
+/src/index.html
 /src/services/HTTPTransport.ts
+
+# Local files
+dist
+node_modules

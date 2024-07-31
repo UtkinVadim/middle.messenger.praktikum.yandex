@@ -1,9 +1,9 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Input from './Input';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import Input from './Input/index.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenInput extends
     PropsAndChildren {
@@ -12,7 +12,7 @@ interface IPropsAndChildrenInput extends
 }
 
 export default class InputWithLabel extends Block {
-  constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenInput) {
+  constructor(propsAndChildren: IPropsAndChildrenInput, tagName: string = 'div') {
     super(tagName, propsAndChildren);
   }
 

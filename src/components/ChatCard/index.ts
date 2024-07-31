@@ -1,9 +1,9 @@
 import './style.scss';
 
-import tpl from './tpl';
-import ChatCardMessage from './Message';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import ChatCardMessage from './Message/index.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {
     companion: string;
@@ -12,14 +12,15 @@ interface IPropsAndChildrenChatCard extends PropsAndChildren {
 }
 
 export default class ChatCard extends Block {
-  constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenChatCard) {
-    if (!propsAndChildren.attr) {
-      propsAndChildren.attr = {};
+  constructor(propsAndChildren: IPropsAndChildrenChatCard, tagName: string = 'div') {
+    const props = { ...propsAndChildren };
+    if (!props.attr) {
+      props.attr = {};
     }
 
-    propsAndChildren.attr.class = 'chat_card';
+    props.attr.class = 'chat_card';
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {

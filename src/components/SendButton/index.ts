@@ -1,20 +1,21 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
-import ChatMessage from '../ChatMessage';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import ChatMessage from '../ChatMessage/index.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 export default class SendButton extends Block {
   constructor(tagName: string = 'button', propsAndChildren: PropsAndChildren = {}) {
-    if (!propsAndChildren.attr) {
-      propsAndChildren.attr = {};
+    const props = { ...propsAndChildren };
+    if (!props.attr) {
+      props.attr = {};
     }
 
-    propsAndChildren.attr.class = 'send-button';
-    propsAndChildren.attr.type = 'submit';
+    props.attr.class = 'send-button';
+    props.attr.type = 'submit';
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
 
     this.setProps({
       events: {
@@ -29,7 +30,7 @@ export default class SendButton extends Block {
             return;
           }
 
-          const newMessage = new ChatMessage('div', {
+          const newMessage = new ChatMessage({
             text: message,
             type: 'sent',
           });

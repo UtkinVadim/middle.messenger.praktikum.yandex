@@ -1,8 +1,8 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenButton extends PropsAndChildren {
     label: string;
@@ -11,33 +11,34 @@ interface IPropsAndChildrenButton extends PropsAndChildren {
 }
 
 export default class Button extends Block {
-  constructor(tagName: string = 'button', propsAndChildren: IPropsAndChildrenButton) {
-    if (!propsAndChildren.attr) {
-      propsAndChildren.attr = {};
+  constructor(propsAndChildren: IPropsAndChildrenButton, tagName: string = 'button') {
+    const props = { ...propsAndChildren };
+    if (!props.attr) {
+      props.attr = {};
     }
 
-    propsAndChildren.attr.class = 'blue-button';
+    props.attr.class = 'blue-button';
 
-    if (propsAndChildren.type) {
-      propsAndChildren.attr.type = propsAndChildren.type;
+    if (props.type) {
+      props.attr.type = props.type;
     }
 
-    if (!propsAndChildren.events) {
-      propsAndChildren.events = {};
+    if (!props.events) {
+      props.events = {};
     }
 
-    if (propsAndChildren.link) {
-      propsAndChildren.events.click = function (event: PointerEvent) {
-        window.page.setProps({ content: propsAndChildren.link });
+    if (props.link) {
+      props.events.click = function redirect(event: PointerEvent) {
+        window.page.setProps({ content: props.link });
         event.preventDefault();
         event.stopPropagation();
       };
     }
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
-  render() {
+  public render() {
     return this.compile(tpl);
   }
 }

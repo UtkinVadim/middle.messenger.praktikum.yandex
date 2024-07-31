@@ -1,9 +1,9 @@
 import './style.scss';
 
-import tpl from './tpl';
-import Block from '../../services/Block';
-import { PropsAndChildren } from '../../types/Block';
-import BackButton from '../../components/BackButton';
+import tpl from './tpl.ts';
+import Block from '../../services/Block.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
+import BackButton from '../../components/BackButton/index.ts';
 
 interface IPropsAndChildrenError extends
     PropsAndChildren {
@@ -13,10 +13,11 @@ interface IPropsAndChildrenError extends
 }
 
 export default class Error extends Block {
-  constructor(tagName: string = 'main', propsAndChildren: IPropsAndChildrenError) {
-    propsAndChildren.back_button = new BackButton();
+  constructor(propsAndChildren: IPropsAndChildrenError, tagName: string = 'main') {
+    const props = { ...propsAndChildren };
+    props.back_button = new BackButton();
 
-    super(tagName, propsAndChildren);
+    super(tagName, props);
   }
 
   render() {
