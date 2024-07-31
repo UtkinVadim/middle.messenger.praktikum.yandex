@@ -13,7 +13,6 @@ interface IPropsAndChildrenChat extends PropsAndChildren {
 }
 
 
-
 export default class Chat extends Block {
     constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenChat = {}) {
         propsAndChildren = {
@@ -24,6 +23,7 @@ export default class Chat extends Block {
                 class: 'chat'
             }
         }
+
         super(tagName, propsAndChildren);
     }
 

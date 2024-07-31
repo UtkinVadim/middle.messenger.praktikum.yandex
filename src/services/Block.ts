@@ -172,8 +172,8 @@ export default abstract class Block {
     // Public
     public abstract render(): string;
 
+    // @ts-ignore
     public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
-        // console.log(oldProps, newProps);
         return true;
     }
 
