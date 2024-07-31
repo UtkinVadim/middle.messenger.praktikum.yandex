@@ -1,0 +1,8 @@
+{
+  "extends": "airbnb",
+  "overrides": [
+    {
+      "files": ["**/*.ts"]
+    }
+  ]
+}
