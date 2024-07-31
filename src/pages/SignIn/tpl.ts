@@ -9,6 +9,6 @@ const tpl: string = `
     </div>
 
 </div>
-`
+`;
 
 export default tpl;

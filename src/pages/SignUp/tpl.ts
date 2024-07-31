@@ -3,6 +3,6 @@ const tpl: string = `
     <h3 class="sign_up__header_text">Sign Up</h3>
     {{{inputForm}}}
 </div>
-`
+`;
 
 export default tpl;

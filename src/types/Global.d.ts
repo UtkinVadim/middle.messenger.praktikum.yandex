@@ -1,4 +1,4 @@
-import Block from "../services/Block.ts";
+import Block from '../services/Block.ts';
 
 declare global {
     interface HTMLElement {
