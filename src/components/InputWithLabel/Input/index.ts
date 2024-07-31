@@ -16,7 +16,7 @@ export default class Input extends Block {
     props.attr = {};
 
     if (props.attr.editable) {
-      props.attr.class = 'editable-field';
+      props.attr.class = 'editable_field';
     }
 
     props.attr.type = props.inputType ? props.inputType : 'text';

@@ -1,6 +1,6 @@
 @import '../../styles/blocks/auth';
 
-// Main
+/* Main */
 .sign_in {
   @extend %main;
 
@@ -8,12 +8,12 @@
   height: 300px;
 }
 
-// Header
+/* Header */
 .sign_in__header_text {
   @extend %header_text;
 }
 
-// Inputs
+/* Inputs */
 .sign_in__inputs {
   @extend %inputs;
 
@@ -22,7 +22,7 @@
   }
 }
 
-// Buttons
+/* Buttons */
 .sign_in__buttons {
   @extend %buttons;
 

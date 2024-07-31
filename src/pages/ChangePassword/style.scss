@@ -1,19 +1,19 @@
 @import "../../styles/mixins";
 @import "../../styles/blocks/profile";
 
-// Main
+/* Main */
 .change_password {
   @extend %profile-main;
 }
 
-// Inputs
+/* Inputs */
 .change_password__inputs {
   @extend %profile__inputs;
 
   margin-top: 10%;
 }
 
-// Buttons
+/* Buttons */
 .change_password__buttons {
   @extend %profile__buttons;
 }
