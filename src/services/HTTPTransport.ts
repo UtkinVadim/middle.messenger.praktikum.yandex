@@ -19,6 +19,9 @@ const METHODS: Methods = {
     DELETE: 'DELETE',
 };
 
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
+
+
 export default class HTTPTransport {
 
     public queryStringify(data: Record<string, string>): string {
@@ -41,7 +44,7 @@ export default class HTTPTransport {
         return '?' + filtersList.join('&');
     }
 
-    get = (url: string, options: Options = {method: METHODS.GET}) => {
+    get: HTTPMethod = (url, options = {method: METHODS.GET}) => {
         if (typeof options.data === 'object') {
             options.data = this.queryStringify(options.data);
         }
@@ -49,15 +52,15 @@ export default class HTTPTransport {
         return this.request(url, {...options}, options.timeout);
     };
 
-    put = (url: string, options: Options = {method: METHODS.PUT}) => {
+    put: HTTPMethod = (url, options = {method: METHODS.PUT}) => {
         return this.request(url, {...options}, options.timeout);
     };
 
-    post = (url: string, options: Options = {method: METHODS.POST}) => {
+    post: HTTPMethod = (url, options = {method: METHODS.POST}) => {
         return this.request(url, {...options}, options.timeout);
     };
 
-    delete = (url: string, options: Options = {method: METHODS.DELETE}) => {
+    delete: HTTPMethod = (url, options = {method: METHODS.DELETE}) => {
         return this.request(url, {...options}, options.timeout);
     };
 
