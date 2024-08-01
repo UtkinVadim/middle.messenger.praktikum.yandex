@@ -66,5 +66,6 @@ export function inputValidator(validateFunction: (input: string) => string) {
 
     const message: string = validateFunction(input.value);
     input.setCustomValidity(message);
+    input.reportValidity();
   };
 }
