@@ -1,21 +1,20 @@
 @import "../mixins";
 
-// Main
+/* Main */
 %profile-main {
   @extend %on-center-one-column;
 }
 
-// Inputs
+/* Inputs */
 %profile__inputs {
   input {
     width: 510px;
     margin-bottom: 10px;
-
     padding-left: 10px;
   }
 }
 
-// Buttons
+/* Buttons */
 %profile__buttons {
   margin-top: 40px;
 
