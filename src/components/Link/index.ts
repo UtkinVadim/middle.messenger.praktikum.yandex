@@ -1,10 +1,11 @@
 import tpl from './tpl.ts';
+import router from '../../index.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenLink extends PropsAndChildren {
-    title: string;
-    contentPage: Block;
+  url: string;
+  title: string;
 }
 
 export default class Link extends Block {
@@ -15,9 +16,9 @@ export default class Link extends Block {
     }
 
     props.events.click = function redirect(event: PointerEvent) {
-      window.page.setProps({ content: props.contentPage });
       event.preventDefault();
       event.stopPropagation();
+      router.go(props.url);
     };
 
     super(tagName, props);

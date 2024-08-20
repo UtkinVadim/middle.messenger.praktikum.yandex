@@ -4,13 +4,14 @@ import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
 import Button from '../../components/Button/index.ts';
 import InputForm from '../../components/InputForm/index.ts';
-import type { PropsAndChildren } from '../../types/Block.d.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import { inputValidator, validateLogin, validatePassword } from '../../utils/validations.ts';
 
 export default class SignIn extends Block {
-  constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
+  public static url = '/';
+
+  constructor(tagName = 'main', propsAndChildren = {}) {
     const props = {
       ...propsAndChildren,
       inputForm: new InputForm({

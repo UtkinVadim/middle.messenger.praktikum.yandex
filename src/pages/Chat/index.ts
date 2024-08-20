@@ -12,7 +12,7 @@ interface IPropsAndChildrenChat extends PropsAndChildren {
 }
 
 export default class Chat extends Block {
-  constructor(tagName: string = 'div', propsAndChildren: IPropsAndChildrenChat = {}) {
+  constructor(propsAndChildren: IPropsAndChildrenChat = {}, tagName: string = 'div') {
     const props = {
       ...propsAndChildren,
       sendButton: new SendButton(),

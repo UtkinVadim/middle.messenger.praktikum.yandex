@@ -4,6 +4,7 @@ export default function renderDom(query: string, component: Block): Element | nu
   const root = document.querySelector(query);
 
   if (root) {
+    root.innerHTML = '';
     root.appendChild(component.getContent());
   }
 
