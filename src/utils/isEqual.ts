@@ -5,7 +5,7 @@ export default function isEqual(firstValue: valueType, secondValue: valueType): 
     if (firstValue == null || secondValue == null) return false;
     if (typeof firstValue !== typeof secondValue) return false;
 
-    if (firstValue instanceof String) {
+    if (typeof firstValue === 'string') {
       return (firstValue === secondValue);
     }
 

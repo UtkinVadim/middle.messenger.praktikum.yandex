@@ -9,7 +9,7 @@ import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import { inputValidator, validateLogin, validatePassword } from '../../utils/validations.ts';
 
 export default class SignIn extends Block {
-  public static url = '/';
+  public url = '/';
 
   constructor(tagName = 'main', propsAndChildren = {}) {
     const props = {

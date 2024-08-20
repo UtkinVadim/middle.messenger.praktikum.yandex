@@ -17,6 +17,8 @@ import {
 } from '../../utils/validations.ts';
 
 export default class SignUp extends Block {
+  public url: string = '/sign-up';
+
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
     const props = {
       ...propsAndChildren,

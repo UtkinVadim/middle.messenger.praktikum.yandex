@@ -1,18 +1,14 @@
 import Block from './Block.ts';
-import render from '../utils/render.ts';
 import isEqual from '../utils/isEqual.ts';
-
 
 class Route {
   protected _pathname: string;
   protected _block: Block;
   protected _props: Record<string, any>;
 
-  protected _isRendered: boolean = false;
-
   constructor(pathname: string,
-              block: Block,
-              props: Record<string, any>) {
+    block: Block,
+    props: Record<string, any>) {
     this._pathname = pathname;
     this._block = block;
     this._props = props;
@@ -22,29 +18,15 @@ class Route {
     return isEqual(pathname, this._pathname);
   }
 
-  navigate(pathname: string): void {
-    if (this.match(pathname)) {
-      this._pathname = pathname;
-      this.render();
-    }
-  }
-
-  leave(): void {
-    if (this._block) {
-      this._block.hide();
-    }
-  }
-
   render() {
-    console.log("Render")
-    if (!this._isRendered) {
-      render(this._props.rootQuery, this._block);
-      this._isRendered = true;
-      this._block.show();
-      return;
+    const root = document.querySelector(this._props.rootQuery);
+
+    if (root) {
+      root.innerHTML = '';
+      root.appendChild(this._block.getContent());
     }
 
-    this._block.show();
+    this._block.dispatchComponentDidMount();
   }
 }
 
@@ -53,7 +35,6 @@ export default class Router {
   public history: History;
 
   protected _rootQuery: string;
-  protected _currentRoute: Route | null = null;
 
   constructor(rootQuery: string) {
     this.routes = [];
@@ -71,7 +52,6 @@ export default class Router {
 
   start(): void {
     window.onpopstate = ((event: any) => {
-      console.log('Pop');
       this._onRoute(event.currentTarget.location.pathname);
     }).bind(this);
 
@@ -84,11 +64,6 @@ export default class Router {
       return;
     }
 
-    if (this._currentRoute && this._currentRoute !== route) {
-      this._currentRoute.leave();
-    }
-
-    this._currentRoute = route;
     route.render();
   }
 
@@ -97,15 +72,11 @@ export default class Router {
     this._onRoute(pathname);
   }
 
-  back(): void {
-    this.history.back();
-  }
-
-  forward(): void {
-    this.history.forward();
-  }
-
   getRoute(pathname: string): Route | undefined {
     return this.routes.find(route => route.match(pathname));
+  }
+
+  back(): void {
+    this.history.back();
   }
 }

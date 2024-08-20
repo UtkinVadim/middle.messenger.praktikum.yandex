@@ -1,6 +1,7 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
+import router from '../../index.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
@@ -29,7 +30,10 @@ export default class Button extends Block {
 
     if (props.link) {
       props.events.click = function redirect(event: PointerEvent) {
-        window.page.setProps({ content: props.link });
+        if (!props.link?.url) {
+          return
+        }
+        router.go(props.link.url);
         event.preventDefault();
         event.stopPropagation();
       };

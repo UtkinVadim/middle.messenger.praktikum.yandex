@@ -11,6 +11,8 @@ interface IPropsAndChildrenLastChats extends
 }
 
 export default class LastChats extends Block {
+  public url: string = '/last_chats';
+
   constructor(propsAndChildren: IPropsAndChildrenLastChats, tagName: string = 'main') {
     super(tagName, propsAndChildren);
   }

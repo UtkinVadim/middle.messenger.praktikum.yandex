@@ -3,6 +3,7 @@ import './style.scss';
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import router from '../../index.ts';
 
 export default class BackButton extends Block {
   constructor(tagName: string = 'button', propsAndChildren: PropsAndChildren = {}) {
@@ -12,7 +13,15 @@ export default class BackButton extends Block {
     }
 
     props.attr.class = 'back-button';
-    props.attr.onclick = "location.href='/';";
+
+    if (!props.events) {
+      props.events = {};
+    }
+    props.events.click = function redirect(event: PointerEvent) {
+      router.back();
+      event.preventDefault();
+      event.stopPropagation();
+    };
 
     super(tagName, props);
   }

@@ -17,14 +17,17 @@ import {
   validatePhone,
 } from '../../utils/validations.ts';
 
+
 export default class ProfileSettings extends Block {
-  constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
+  public url: string = '/settings';
+
+  constructor(changePasswordBlock: ChangePassword, propsAndChildren: PropsAndChildren = {}, tagName: string = 'main') {
     const props = {
       ...propsAndChildren,
       backButton: new BackButton(),
       changePasswordButton: new Button({
         label: 'Change password',
-        link: new ChangePassword(),
+        link: changePasswordBlock,
       }),
       inputForm: new InputForm({
         formId: 'profileSettingsForm',

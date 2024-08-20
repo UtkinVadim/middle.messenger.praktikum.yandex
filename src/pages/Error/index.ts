@@ -13,11 +13,15 @@ interface IPropsAndChildrenError extends
 }
 
 export default class Error extends Block {
+  public url: string;
+
   constructor(propsAndChildren: IPropsAndChildrenError, tagName: string = 'main') {
     const props = { ...propsAndChildren };
     props.back_button = new BackButton();
 
     super(tagName, props);
+
+    this.url = `/error/${propsAndChildren.error_code}`;
   }
 
   render() {

@@ -12,6 +12,8 @@ interface IPropsAndChildrenChat extends PropsAndChildren {
 }
 
 export default class Chat extends Block {
+  public url: string = '/chat';
+
   constructor(propsAndChildren: IPropsAndChildrenChat = {}, tagName: string = 'div') {
     const props = {
       ...propsAndChildren,

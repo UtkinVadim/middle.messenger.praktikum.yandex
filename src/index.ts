@@ -10,6 +10,7 @@ import ChatCard from './components/ChatCard/index.ts';
 import ChatMessage from './components/ChatMessage/index.ts';
 import ProfileSettings from './pages/ProfileSettings/index.ts';
 import ChatCardMessage from './components/ChatCard/Message/index.ts';
+import ChangePassword from './pages/ChangePassword';
 
 const signIn = new SignIn();
 const signUp = new SignUp();
@@ -21,7 +22,8 @@ const error500 = new ErrorPage({
   error_code: '500',
   description: 'Something went wrong',
 });
-const profileSettings = new ProfileSettings();
+const changePassword = new ChangePassword();
+const profileSettings = new ProfileSettings(changePassword);
 const lastChats = new LastChats({
   chat_cards: [
     new ChatCard({
@@ -39,7 +41,7 @@ const lastChats = new LastChats({
     }),
   ],
 });
-const chatProps = new Chat({
+const chat = new Chat({
   messages: [
     new ChatMessage({
       text: 'Hello',
@@ -51,26 +53,58 @@ const chatProps = new Chat({
     }),
   ],
 });
-const navigationBlock = new Navigation(
+
+const navigation = new Navigation(
   {
     items: [
-      new Link({url: '/', title: 'Авторизация'}),
-      new Link({url: '/', title: 'Регистрация'}),
-      new Link({url: '/', title: 'Ошибка 404'}),
-      new Link({url: '/', title: 'Ошибка 500'}),
-      new Link({url: '/', title: 'Настройки пользователя'}),
-      new Link({url: '/', title: 'Список чатов'}),
-      new Link({url: '/', title: 'Лента переписки'}),
+      new Link({
+        url: signIn.url,
+        title: 'Авторизация'
+      }),
+      new Link({
+        url: signUp.url,
+        title: 'Регистрация'
+      }),
+      new Link({
+        url: error404.url,
+        title: 'Ошибка 404'
+      }),
+      new Link({
+        url: error500.url,
+        title: 'Ошибка 500'
+      }),
+      new Link({
+        url: profileSettings.url,
+        title: 'Настройки пользователя'
+      }),
+      new Link({
+        url: lastChats.url,
+        title: 'Список чатов'
+      }),
+      new Link({
+        url: chat.url,
+        title: 'Лента переписки'
+      }),
     ],
   }
 );
 
 const router = new Router('.app');
 router
-  .use(Navigation.url, navigationBlock)
-  .use(SignIn.url, signIn)
+  .use(signIn.url, signIn)
+  .use(signUp.url, signUp)
+  .use(error404.url, error404)
+  .use(error500.url, error500)
+  .use(changePassword.url, changePassword)
+  .use(profileSettings.url, profileSettings)
+  .use(lastChats.url, lastChats)
+  .use(chat.url, chat)
+  .use(navigation.url, navigation)
   .start();
 
-router.go('/navigation');
+if (localStorage.getItem('isFirstLaunch') === null) {
+  localStorage.setItem('isFirstLaunch', 'false');
+  router.go('/navigation');
+}
 
 export default router;

@@ -17,6 +17,8 @@ type ListProp = Record<string, Array<any>>;
 type Meta = { tagName: string, props: BaseProp };
 
 export default abstract class Block {
+  public url?: string;
+
   private static EVENTS: BlockEvents = {
     INIT: 'init',
     FLOW_RENDER: 'flow:render',
@@ -285,14 +287,5 @@ export default abstract class Block {
       this._eventBus.emit(Block.EVENTS.FLOW_CDU, oldValue, this._props);
       this._setUpdate = false;
     }
-  }
-
-  public show() {
-    this.getContent().style.display = 'block';
-    console.log(this.getContent());
-  }
-
-  public hide() {
-    this.getContent().style.display = 'none';
   }
 }
