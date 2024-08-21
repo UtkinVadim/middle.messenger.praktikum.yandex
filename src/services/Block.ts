@@ -43,13 +43,23 @@ export default abstract class Block {
   protected _setUpdate: boolean = true;
 
   constructor(tagName: string = 'div', propsAndChildren: PropsAndChildren = {}) {
-    const { children, props, lists } = Block._getChildren(propsAndChildren);
+    const {
+      children,
+      props,
+      lists
+    } = Block._getChildren(propsAndChildren);
 
-    this._meta = { tagName, props };
+    this._meta = {
+      tagName,
+      props
+    };
 
     this._children = this._makePropsProxy(children);
     this._lists = this._makePropsProxy(lists);
-    this._props = this._makePropsProxy({ ...props, __id: this._id });
+    this._props = this._makePropsProxy({
+      ...props,
+      __id: this._id
+    });
 
     this._registerEvents();
     this._eventBus.emit(Block.EVENTS.INIT);
@@ -188,10 +198,9 @@ export default abstract class Block {
   // Public
   public abstract render(): HTMLElement;
 
-  /* eslint-disable class-methods-use-this */
+  // @ts-ignore
   public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
-    /* eslint-disable no-console */
-    console.log(oldProps, newProps); // Заглушка. В будущем будет реализована логика проверки.
+    // console.log(oldProps, newProps);
     return true;
   }
 

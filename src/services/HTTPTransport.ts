@@ -1,114 +1,110 @@
-type Methods = {
-    GET: string,
-    PUT: string,
-    POST: string,
-    DELETE: string
-};
+import type { MethodOptions, RequestOptions } from '../types/HTTPTransport.d.ts';
 
-type Options = {
-    method: string;
-    timeout?: number;
-    headers?: Record<string, string>;
-    data?: Record<string, string> | string;
-}
+type Methods = {
+  GET: string,
+  PUT: string,
+  POST: string,
+  DELETE: string
+};
 
 const METHODS: Methods = {
-    GET: 'GET',
-    PUT: 'PUT',
-    POST: 'POST',
-    DELETE: 'DELETE',
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
-
+type HTTPMethod = (url: string, options?: MethodOptions) => Promise<XMLHttpRequest>
 
 export default class HTTPTransport {
 
-    public queryStringify(data: Record<string, string>): string {
-        const filtersList: Array<string> = [];
+  public static queryStringify(data: Record<string, string>): string {
+    const filtersList: Array<string> = [];
 
-        Object.entries(data).forEach(([filterKey, filterValue]) => {
-            let value;
+    Object.entries(data)
+      .forEach(([filterKey, filterValue]) => {
+        let value;
 
-            if (Array.isArray(filterValue)) {
-                value = filterValue.join(',');
-            } else if (typeof filterValue === 'object') {
-                value = filterValue;
-            } else {
-                value = filterValue;
-            }
-
-            filtersList.push(`${filterKey}=${value}`);
-        });
-
-        return '?' + filtersList.join('&');
-    }
-
-    get: HTTPMethod = (url, options = {method: METHODS.GET}) => {
-        if (typeof options.data === 'object') {
-            options.data = this.queryStringify(options.data);
+        if (Array.isArray(filterValue)) {
+          value = filterValue.join(',');
+        } else if (typeof filterValue === 'object') {
+          value = filterValue;
+        } else {
+          value = filterValue;
         }
 
-        return this.request(url, {...options}, options.timeout);
-    };
+        filtersList.push(`${filterKey}=${value}`);
+      });
 
-    put: HTTPMethod = (url, options = {method: METHODS.PUT}) => {
-        return this.request(url, {...options}, options.timeout);
-    };
+    return '?' + filtersList.join('&');
+  }
 
-    post: HTTPMethod = (url, options = {method: METHODS.POST}) => {
-        return this.request(url, {...options}, options.timeout);
-    };
+  get: HTTPMethod = (url, options = {}) => {
+    return this.request(url, {
+      ...options,
+      method: METHODS.GET
+    }, options.timeout);
+  };
 
-    delete: HTTPMethod = (url, options = {method: METHODS.DELETE}) => {
-        return this.request(url, {...options}, options.timeout);
-    };
+  put: HTTPMethod = (url, options = {}) => {
+    return this.request(url, {
+      ...options,
+      method: METHODS.PUT
+    }, options.timeout);
+  };
 
-    request = (url: string, options: Options, timeout = 5000) => {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
+  post: HTTPMethod = (url, options = {}) => {
+    return this.request(url, {
+      ...options,
+      method: METHODS.POST
+    }, options.timeout);
+  };
 
-            if (options.method === METHODS.GET && !!options.data) {
-                url = url + options.data;
-            }
+  delete: HTTPMethod = (url, options = {}) => {
+    return this.request(url, {
+      ...options,
+      method: METHODS.DELETE
+    }, options.timeout);
+  };
 
-            xhr.open(options.method, url);
+  request = (url: string, options: RequestOptions, timeout = 5000): Promise<XMLHttpRequest> => {
+    const {
+      headers = {},
+      method,
+      data
+    } = options;
 
-            if (options.headers) {
-                const headers: Record<string, string> = options.headers as Record<string, string>;
-                Object.keys(headers).forEach(key => {
-                    xhr.setRequestHeader(key, headers[key]);
-                });
-            }
+    return new Promise(function (resolve, reject) {
+      const xhr = new XMLHttpRequest();
+      const isGet = method === METHODS.GET;
 
-            xhr.onload = function () {
-                resolve(xhr);
-            };
+      xhr.open(
+        method,
+        isGet && !!data
+          ? `${url}${HTTPTransport.queryStringify(data)}`
+          : url,
+      );
 
-            xhr.onloadend = function () {
-                throw new Error('Request timeout');
-            };
-
-            xhr.timeout = timeout;
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            xhr.ontimeout = reject;
-
-            if (options.method === METHODS.GET) {
-                if (!options.data) {
-                    xhr.send();
-                } else {
-                    const requestData: string = options.data as string
-                    xhr.send(requestData);
-                }
-            } else {
-                if (!options.data) {
-                    xhr.send();
-                } else {
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify(options.data));
-                }
-            }
+      Object.keys(headers)
+        .forEach(key => {
+          xhr.setRequestHeader(key, headers[key]);
         });
-    };
+
+      xhr.onload = function () {
+        resolve(xhr);
+      };
+
+      xhr.onabort = reject;
+      xhr.onerror = reject;
+
+      xhr.timeout = timeout;
+      xhr.ontimeout = reject;
+
+      if (isGet || !data) {
+        xhr.send();
+      } else {
+        xhr.send(JSON.stringify(data));
+      }
+    });
+  };
 }
