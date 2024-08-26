@@ -12,6 +12,8 @@ interface IPropsAndChildrenInputForm extends PropsAndChildren {
 
     submitButton: Button;
     submitContainerClass: string;
+
+    onSubmit: (formData: any) => void;
 }
 
 export default class InputForm extends Block {
@@ -35,6 +37,8 @@ export default class InputForm extends Block {
               }
             }
           }
+
+          propsAndChildren.onSubmit(formData);
         },
       },
     };

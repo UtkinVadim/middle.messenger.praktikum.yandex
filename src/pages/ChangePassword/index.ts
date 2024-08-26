@@ -11,7 +11,7 @@ import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import { inputValidator, validatePassword } from '../../utils/validations.ts';
 
 export default class ChangePassword extends Block {
-  public url: string = '/settings/change_password';
+  public static url: string = '/settings/change_password';
 
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
     const props = {

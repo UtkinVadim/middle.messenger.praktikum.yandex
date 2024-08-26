@@ -1,6 +1,7 @@
 const tpl: string = `
 <div class="sign_in">
     <h3 class="sign_in__header_text">Super messenger</h3>
+    {{{errorText}}}
 
     {{{inputForm}}}
 

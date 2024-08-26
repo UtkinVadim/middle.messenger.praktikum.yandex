@@ -6,9 +6,9 @@ import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {
-    companion: string;
-    lastMessages: Array<ChatCardMessage>;
-    newMessagesCount?: number;
+  companion: string;
+  lastMessages: Array<ChatCardMessage>;
+  newMessagesCount?: number;
 }
 
 export default class ChatCard extends Block {
@@ -19,6 +19,15 @@ export default class ChatCard extends Block {
     }
 
     props.attr.class = 'chat_card';
+
+    if (!props.events) {
+      props.events = {};
+    }
+    props.events.click = function onClick(event: PointerEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log('Click on chat card');
+    };
 
     super(tagName, props);
   }

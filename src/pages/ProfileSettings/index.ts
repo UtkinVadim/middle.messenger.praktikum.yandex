@@ -19,7 +19,7 @@ import {
 
 
 export default class ProfileSettings extends Block {
-  public url: string = '/settings';
+  public static url: string = '/settings';
 
   constructor(changePasswordBlock: ChangePassword, propsAndChildren: PropsAndChildren = {}, tagName: string = 'main') {
     const props = {

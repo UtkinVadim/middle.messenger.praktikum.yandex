@@ -7,7 +7,7 @@ interface IPropsAndChildrenLink extends PropsAndChildren {
   url: string;
   title: string;
 }
-
+// TODO: Remove
 export default class Link extends Block {
   constructor(propsAndChildren: IPropsAndChildrenLink, tagName: string = 'li') {
     const props = { ...propsAndChildren };
