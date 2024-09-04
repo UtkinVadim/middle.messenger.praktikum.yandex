@@ -8,13 +8,15 @@ import SendButton from '../../components/SendButton/index.ts';
 import ChatMessage from '../../components/ChatMessage/index.ts';
 
 interface IPropsAndChildrenChat extends PropsAndChildren {
-    messages?: Array<ChatMessage>;
+  chatId: number;
+  title: string;
+  messages?: Array<ChatMessage>;
 }
 
 export default class Chat extends Block {
   public static url: string = '/chat';
 
-  constructor(propsAndChildren: IPropsAndChildrenChat = {}, tagName: string = 'div') {
+  constructor(propsAndChildren: IPropsAndChildrenChat, tagName: string = 'div') {
     const props = {
       ...propsAndChildren,
       sendButton: new SendButton(),

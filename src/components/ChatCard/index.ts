@@ -1,7 +1,9 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
+import router from '../../index.ts';
 import Block from '../../services/Block.ts';
+import Chat from '../../pages/Chat/index.ts';
 import ChatCardMessage from './Message/index.ts';
 import DeleteChatButton from './DeleteChatButton';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
@@ -30,7 +32,8 @@ export default class ChatCard extends Block {
     props.events.click = function onClick(event: PointerEvent) {
       event.preventDefault();
       event.stopPropagation();
-      console.log('Open chat')
+      const path = Chat.url + '/' + props.id;
+      router.go(path);
     };
 
     props.deleteChatButton = new DeleteChatButton({ chatId: props.id });

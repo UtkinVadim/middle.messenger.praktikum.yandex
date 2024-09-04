@@ -1,4 +1,6 @@
+import router from '../index.ts';
 import store from '../services/Store.ts';
+import Chat from '../pages/Chat/index.ts';
 import ChatCard from '../components/ChatCard';
 import ChatsApi from '../services/api/ChatsApi.ts';
 import chatsApi from '../services/api/ChatsApi.ts';
@@ -7,18 +9,25 @@ class ChatController {
   public async createChat(title: string = 'New chat'): Promise<void> {
     const requestData = { title: title };
     const xhr = await ChatsApi.createChat(requestData);
-    if (xhr.status === 200) {
-      const chatId = JSON.parse(xhr.response).id;
-      const chatCard = new ChatCard({ id: chatId, title: title });
-      store.addChat(chatCard);
+    if (xhr.status !== 200) {
+      throw new Error(xhr.response);
     }
+
+    const chatId = JSON.parse(xhr.response).id;
+
+    const newChatUrl = Chat.url + '/' + chatId;
+    const newChat = new Chat({chatId: chatId, title: title});
+    router.use(newChatUrl, newChat);
+
+    const chatCard = new ChatCard({id: chatId, title: title});
+    store.addChat(chatCard);
   }
 
   public async deleteChat(chatId: number): Promise<void> {
     const requestData = { chatId: chatId };
     const xhr = await ChatsApi.deleteChat(requestData);
     if (xhr.status === 200) {
-      this.refreshChats()
+      this.refreshChats();
     }
   }
 

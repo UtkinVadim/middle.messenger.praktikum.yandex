@@ -3,7 +3,7 @@ const tpl: string = `
     <div class="chat__header__content">
         {{{backButton}}}
 
-        <strong class="chat__header__content__name">Name</strong>
+        <strong class="chat__header__content__name">{{title}}</strong>
 
         <img class="chat__header__content__avatar" src="/empty_avatar.svg" alt="Name">
     </div>
