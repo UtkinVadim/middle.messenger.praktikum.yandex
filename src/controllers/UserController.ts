@@ -1,6 +1,10 @@
+import router from '../index.ts';
 import store from '../services/Store.ts';
-import authApi from '../services/api/AuthApi.ts';
+import LastChats from '../pages/LastChats';
 import { userInfo } from '../types/api/AuthApi';
+import userApi from '../services/api/UserApi.ts';
+import authApi from '../services/api/AuthApi.ts';
+import type { changeUserData } from '../types/api/UserApi.d.ts';
 
 class UserController {
   public async getUserInfo(): Promise<userInfo> {
@@ -14,6 +18,15 @@ class UserController {
   public async refreshUserData(): Promise<void> {
     const userInfo: userInfo = await this.getUserInfo();
     store.updateUserInfo(userInfo);
+  }
+
+  public async saveUserProfile(data: changeUserData): Promise<void> {
+    const xhr = await userApi.saveUserProfile(data);
+    if (xhr.status !== 200) {
+      throw new Error('Save user data error');
+    }
+    await this.refreshUserData();
+    router.go(LastChats.url);
   }
 }
 

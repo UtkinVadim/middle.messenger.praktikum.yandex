@@ -2,12 +2,16 @@ import './style.scss';
 
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
+import { userInfo } from '../../types/api/AuthApi';
 import Button from '../../components/Button/index.ts';
 import ChangePassword from '../ChangePassword/index.ts';
 import InputForm from '../../components/InputForm/index.ts';
+import store, { StoreEvents } from '../../services/Store.ts';
 import BackButton from '../../components/BackButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import userController from '../../controllers/UserController.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
+import type { changeUserData } from '../../types/api/UserApi.d.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import {
   inputValidator,
@@ -16,11 +20,9 @@ import {
   validateEmail,
   validatePhone,
 } from '../../utils/validations.ts';
-import store, { StoreEvents } from '../../services/Store.ts';
-import { userInfo } from '../../types/api/AuthApi';
 
 interface inputMap {
-    [key: string]: Input;
+  [key: string]: Input;
 }
 
 export default class ProfileSettings extends Block {
@@ -135,7 +137,7 @@ export default class ProfileSettings extends Block {
         if (!input) {
           continue;
         }
-        const newProps = {attr: {value: value}};
+        const newProps = { attr: { value: value } };
         input.setProps(newProps);
       }
 
@@ -147,13 +149,14 @@ export default class ProfileSettings extends Block {
   }
 
   public static onSubmit(formData: userInfo): void {
-
-    console.log('Save: ', formData);
-    // const isFormDataInvalid = (validateLogin(formData.login) || validatePassword(formData.password));
-    //
-    // if (isFormDataInvalid) {
-    //   return;
-    // }
-    // LoginController.signIn(formData);
+    const dataToSave: changeUserData = {
+      first_name: formData.first_name,
+      second_name: formData.second_name,
+      login: formData.login,
+      email: formData.email,
+      phone: formData.phone,
+      display_name: formData.display_name,
+    };
+    userController.saveUserProfile(dataToSave);
   }
 }
