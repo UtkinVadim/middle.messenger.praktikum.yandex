@@ -15,9 +15,7 @@ class ChatController {
 
     const chatId = JSON.parse(xhr.response).id;
 
-    const newChatUrl = Chat.url + '/' + chatId;
-    const newChat = new Chat({chatId: chatId, title: title});
-    router.use(newChatUrl, newChat);
+    this._addChatUrl(title, chatId);
 
     const chatCard = new ChatCard({id: chatId, title: title});
     store.addChat(chatCard);
@@ -41,10 +39,19 @@ class ChatController {
     const chatCards = [];
     for (const chatData of response) {
       const chatCard = new ChatCard(chatData);
+      this._addChatUrl(chatData.title, chatData.id);
       chatCards.push(chatCard);
     }
 
     store.setChats(chatCards);
+  }
+
+  private _addChatUrl(title: string, chatId: number): void {
+    console.log(title)
+    console.log(chatId)
+    const newChatUrl = Chat.url + '/' + chatId;
+    const newChat = new Chat({chatId: chatId, title: title});
+    router.use(newChatUrl, newChat);
   }
 }
 
