@@ -8,6 +8,7 @@ interface IPropsAndChildrenInput extends PropsAndChildren {
     id: string;
     editable: boolean;
     inputType?: string;
+    value?: any;
 }
 
 export default class Input extends Block {
@@ -22,6 +23,10 @@ export default class Input extends Block {
     props.attr.type = props.inputType ? props.inputType : 'text';
     props.attr.id = props.id;
     props.attr.name = props.id;
+
+    if (props.value) {
+      props.attr.value = props.value;
+    }
 
     super(tagName, props);
   }

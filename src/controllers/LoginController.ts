@@ -5,6 +5,7 @@ import ErrorText from '../components/ErrorText';
 import authApi from '../services/api/AuthApi.ts';
 import type { SignInData, signUpData } from '../types/api/AuthApi.d.ts';
 import ChatController from './ChatController.ts';
+import UserController from './UserController.ts';
 
 class LoginController {
   public async signIn(formData: SignInData): Promise<void> {
@@ -35,6 +36,7 @@ class LoginController {
 
   private async _setUserData(): Promise<void> {
     ChatController.refreshChats();
+    UserController.refreshUserData();
   }
 
   private _getErrorBlock(): { errorTextBlock: HTMLElement, errorText: HTMLElement } {

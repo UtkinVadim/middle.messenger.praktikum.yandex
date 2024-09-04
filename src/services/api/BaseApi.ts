@@ -32,6 +32,12 @@ export default abstract class BaseAPI {
     return http.post(url, options);
   }
 
+  protected _put(path: string, data: requestData = null) {
+    const url = this._baseUrl + path;
+    const options = this._getOptions(data);
+    return http.put(url, options);
+  }
+
   protected _delete(path: string, data: requestData = null) {
     const url = this._baseUrl + path;
     const options = this._getOptions(data);

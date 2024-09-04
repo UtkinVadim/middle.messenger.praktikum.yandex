@@ -1,4 +1,4 @@
-interface userData {
+export interface userData {
   first_name: string;
   second_name: string;
   login: string;
@@ -13,4 +13,12 @@ export interface SignInData {
 
 export interface signUpData extends userData {
   password: string;
+}
+
+export interface userInfo extends userData {
+  [key: string]: any;
+
+  id: number;
+  display_name: string;
+  avatar: string | null;
 }

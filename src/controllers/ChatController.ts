@@ -47,8 +47,6 @@ class ChatController {
   }
 
   private _addChatUrl(title: string, chatId: number): void {
-    console.log(title)
-    console.log(chatId)
     const newChatUrl = Chat.url + '/' + chatId;
     const newChat = new Chat({chatId: chatId, title: title});
     router.use(newChatUrl, newChat);

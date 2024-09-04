@@ -16,12 +16,57 @@ import {
   validateEmail,
   validatePhone,
 } from '../../utils/validations.ts';
+import store, { StoreEvents } from '../../services/Store.ts';
+import { userInfo } from '../../types/api/AuthApi';
 
+interface inputMap {
+    [key: string]: Input;
+}
 
 export default class ProfileSettings extends Block {
   public static url: string = '/settings';
 
   constructor(changePasswordBlock: ChangePassword, propsAndChildren: PropsAndChildren = {}, tagName: string = 'main') {
+    const emailInput = new Input({
+      id: 'email',
+      editable: true,
+      events: {
+        blur: inputValidator(validateEmail),
+      },
+    });
+    const loginInput = new Input({
+      id: 'login',
+      editable: true,
+      events: {
+        blur: inputValidator(validateLogin),
+      },
+    });
+    const firstNameInput = new Input({
+      id: 'first_name',
+      editable: true,
+      events: {
+        blur: inputValidator(validateName),
+      },
+    });
+    const secondNameInput = new Input({
+      id: 'second_name',
+      editable: true,
+      events: {
+        blur: inputValidator(validateName),
+      },
+    });
+    const displayNameInput = new Input({
+      id: 'display_name',
+      editable: true,
+    });
+    const phoneInput = new Input({
+      id: 'phone',
+      editable: true,
+      events: {
+        blur: inputValidator(validatePhone),
+      },
+    });
+
     const props = {
       ...propsAndChildren,
       backButton: new BackButton(),
@@ -34,65 +79,31 @@ export default class ProfileSettings extends Block {
         inputs: [
           new InputWithLabel({
             label: 'Email',
-            input: new Input({
-              id: 'email',
-              editable: true,
-              events: {
-                blur: inputValidator(validateEmail),
-              },
-            }),
-
+            input: emailInput,
           }),
           new InputWithLabel({
             label: 'Login',
-            input: new Input({
-              id: 'login',
-              editable: true,
-              events: {
-                blur: inputValidator(validateLogin),
-              },
-            }),
+            input: loginInput,
 
           }),
           new InputWithLabel({
             label: 'First name',
-            input: new Input({
-              id: 'first_name',
-              editable: true,
-              events: {
-                blur: inputValidator(validateName),
-              },
-            }),
+            input: firstNameInput,
 
           }),
           new InputWithLabel({
             label: 'Second name',
-            input: new Input({
-              id: 'second_name',
-              editable: true,
-              events: {
-                blur: inputValidator(validateName),
-              },
-            }),
+            input: secondNameInput,
 
           }),
           new InputWithLabel({
             label: 'Display name',
-            input: new Input({
-              id: 'display_name',
-              editable: true,
-            }),
+            input: displayNameInput,
 
           }),
           new InputWithLabel({
             label: 'Phone',
-            input: new Input({
-              id: 'phone',
-              editable: true,
-              events: {
-                blur: inputValidator(validatePhone),
-              },
-            }),
+            input: phoneInput,
 
           }),
         ],
@@ -102,13 +113,47 @@ export default class ProfileSettings extends Block {
           type: 'submit',
         }),
         submitContainerClass: 'profile_settings__buttons profile_settings__buttons__submit_button',
+        onSubmit: ProfileSettings.onSubmit
       }),
     };
 
     super(tagName, props);
+
+    store.on(StoreEvents.UserInfoUpdated, () => {
+      const userInfo = store.getState().userInfo;
+      const inputMap: inputMap = {
+        email: emailInput,
+        login: loginInput,
+        first_name: firstNameInput,
+        second_name: secondNameInput,
+        display_name: displayNameInput,
+        phone: phoneInput
+      };
+
+      for (let [key, value] of Object.entries(userInfo)) {
+        const input = inputMap[key];
+        if (!input) {
+          continue;
+        }
+        const newProps = {attr: {value: value}};
+        input.setProps(newProps);
+      }
+
+    });
   }
 
   render() {
     return this.compile(tpl);
+  }
+
+  public static onSubmit(formData: userInfo): void {
+
+    console.log('Save: ', formData);
+    // const isFormDataInvalid = (validateLogin(formData.login) || validatePassword(formData.password));
+    //
+    // if (isFormDataInvalid) {
+    //   return;
+    // }
+    // LoginController.signIn(formData);
   }
 }
