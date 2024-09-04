@@ -4,7 +4,8 @@ import LastChats from '../pages/LastChats';
 import { userInfo } from '../types/api/AuthApi';
 import userApi from '../services/api/UserApi.ts';
 import authApi from '../services/api/AuthApi.ts';
-import type { changeUserData } from '../types/api/UserApi.d.ts';
+import ProfileSettings from '../pages/ProfileSettings/index.ts';
+import type { changeUserData, changePasswordData } from '../types/api/UserApi.d.ts';
 
 class UserController {
   public async getUserInfo(): Promise<userInfo> {
@@ -27,6 +28,14 @@ class UserController {
     }
     await this.refreshUserData();
     router.go(LastChats.url);
+  }
+
+  public async changePassword(data: changePasswordData) {
+    const xhr = await userApi.changePassword(data);
+    if (xhr.status !== 200) {
+      throw new Error('Change password error');
+    }
+    router.go(ProfileSettings.url);
   }
 }
 

@@ -3,15 +3,23 @@ import './style.scss';
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
 import Button from '../../components/Button/index.ts';
-import type { PropsAndChildren } from '../../types/Block.d.ts';
 import InputForm from '../../components/InputForm/index.ts';
 import BackButton from '../../components/BackButton/index.ts';
+import type { PropsAndChildren } from '../../types/Block.d.ts';
+import userController from '../../controllers/UserController.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import { inputValidator, validatePassword } from '../../utils/validations.ts';
+import { changePasswordData } from '../../types/api/UserApi';
+
+type changePasswordFormData = {
+    oldPassword: string;
+    newPassword: string;
+    passwordConfirm: string;
+};
 
 export default class ChangePassword extends Block {
-  public static url: string = '/settings/change_password';
+  public url: string = '/settings/change_password';
 
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
     const props = {
@@ -57,6 +65,7 @@ export default class ChangePassword extends Block {
         inputsContainerClass: 'change_password__inputs',
         submitButton: new Button({ label: 'Save Up', type: 'submit' }),
         submitContainerClass: 'change_password__buttons',
+        onSubmit: ChangePassword.onSubmit
       }),
       backButton: new BackButton(),
     };
@@ -65,5 +74,13 @@ export default class ChangePassword extends Block {
 
   render() {
     return this.compile(tpl);
+  }
+
+  public static onSubmit(formData: changePasswordFormData): void {
+    const data: changePasswordData = {
+      oldPassword: formData.oldPassword,
+      newPassword: formData.newPassword
+    }
+    userController.changePassword(data);
   }
 }
