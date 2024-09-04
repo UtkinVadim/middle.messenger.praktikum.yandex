@@ -8,8 +8,17 @@ class ChatController {
     const requestData = { title: title };
     const xhr = await ChatsApi.createChat(requestData);
     if (xhr.status === 200) {
-      const chatCard = new ChatCard({ title: title });
+      const chatId = JSON.parse(xhr.response).id;
+      const chatCard = new ChatCard({ id: chatId, title: title });
       store.addChat(chatCard);
+    }
+  }
+
+  public async deleteChat(chatId: number): Promise<void> {
+    const requestData = { chatId: chatId };
+    const xhr = await ChatsApi.deleteChat(requestData);
+    if (xhr.status === 200) {
+      this.refreshChats()
     }
   }
 

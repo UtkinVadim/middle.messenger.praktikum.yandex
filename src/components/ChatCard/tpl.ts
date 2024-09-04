@@ -1,4 +1,6 @@
 const tpl: string = `
+{{{deleteChatButton}}}
+
 <div class="chat_card__avatar">
     <img class="avatar" src="/empty_avatar.svg" alt="{{ companion }}">
 </div>

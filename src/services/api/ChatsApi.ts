@@ -1,5 +1,5 @@
 import BaseAPI from './BaseApi.ts';
-import type { GetChatsData, CreateChatData } from '../../types/api/ChatsApi.d.ts';
+import type { GetChatsData, CreateChatData, DeleteChatData } from '../../types/api/ChatsApi.d.ts';
 
 class ChatsApi extends BaseAPI {
   public async getChats(data: GetChatsData = {
@@ -13,6 +13,11 @@ class ChatsApi extends BaseAPI {
   public async createChat(data: CreateChatData): Promise<XMLHttpRequest> {
     const path = '/chats';
     return await this._post(path, data);
+  }
+
+  public async deleteChat(data: DeleteChatData): Promise<XMLHttpRequest> {
+    const path = '/chats';
+    return await this._delete(path, data);
   }
 }
 

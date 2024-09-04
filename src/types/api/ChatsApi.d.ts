@@ -7,3 +7,7 @@ export interface GetChatsData {
 export interface CreateChatData {
   title: string;
 }
+
+export interface DeleteChatData {
+  chatId: number;
+}
