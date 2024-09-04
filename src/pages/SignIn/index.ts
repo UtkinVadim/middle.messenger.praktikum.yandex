@@ -1,18 +1,17 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
-import router from '../../index.ts';
 import SignUp from '../SignUp/index.ts';
 import Block from '../../services/Block.ts';
-import LastChats from '../LastChats/index.ts';
-import authApi from '../../services/api/AuthApi.ts';
 import Button from '../../components/Button/index.ts';
 import type { SignInData } from '../../types/api/AuthApi';
 import ErrorText from '../../components/ErrorText/index.ts';
 import InputForm from '../../components/InputForm/index.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
+import LoginController from '../../controllers/LoginController.ts';
 import { inputValidator, validateLogin, validatePassword } from '../../utils/validations.ts';
+
 
 export default class SignIn extends Block {
   public static url = '/';
@@ -64,38 +63,12 @@ export default class SignIn extends Block {
   }
 
   public static onSubmit(formData: SignInData): void {
-    const errorTextBlock: HTMLElement | null = document.querySelector(`.${ErrorText.blockClassName}`);
-    const errorText: HTMLElement | null = document.querySelector(`.${ErrorText.textClassName}`);
-
-    if (!errorTextBlock || !errorText) {
-      throw new Error('Error block is not found');
-    }
-
-    errorTextBlock.style.display = 'none';
-
     const isFormDataInvalid = (validateLogin(formData.login) || validatePassword(formData.password));
 
     if (isFormDataInvalid) {
       return;
     }
-
-    authApi.signIn(formData)
-      .then(xhr => {
-        if (xhr.status === 200) {
-          router.go(LastChats.url);
-        } else {
-          const responseData = JSON.parse(xhr.responseText);
-          const reason: string | undefined = responseData.reason;
-
-          if (reason) {
-            errorText.textContent = reason;
-          } else {
-            errorText.textContent = 'Неизвестная ошибка';
-          }
-
-          errorTextBlock.style.display = 'block';
-        }
-      });
+    LoginController.signIn(formData)
   }
 
   public render(): HTMLElement {

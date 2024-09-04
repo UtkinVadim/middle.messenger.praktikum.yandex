@@ -1,5 +1,5 @@
 import BaseAPI from './BaseApi.ts';
-import type { SignInData, signUpData, getUserInfoData } from '../../types/api/AuthApi.d.ts';
+import type { SignInData, signUpData } from '../../types/api/AuthApi.d.ts';
 
 
 class AuthApi extends BaseAPI {
@@ -13,9 +13,9 @@ class AuthApi extends BaseAPI {
     return await this._post(path, data);
   }
 
-  public async getUserInfo(data: getUserInfoData): Promise<XMLHttpRequest> {
+  public async getUserInfo(): Promise<XMLHttpRequest> {
     const path = '/auth/user';
-    return await this._get(path, data);
+    return await this._get(path);
   }
 
   public async logout(): Promise<XMLHttpRequest> {
@@ -24,6 +24,4 @@ class AuthApi extends BaseAPI {
   }
 }
 
-const authApi = new AuthApi();
-
-export default authApi;
+export default new AuthApi();

@@ -3,18 +3,18 @@ const tpl: string = `
     <img class="avatar" src="/empty_avatar.svg" alt="{{ companion }}">
 </div>
 
-{{#if newMessagesCount}}
+{{#if unread_count}}
     <div class="chat_card__new_messages">
-        <span class="chat_card__new_messages__count">+{{ newMessagesCount }}</span>
+        <span class="chat_card__new_messages__count">+{{ unread_count }}</span>
     </div>
 {{/if}}
 
 <div class="chat_card__companion">
-    {{{companion}}}
+    {{{title}}}
 </div>
 
 <div class="chat_card__last_messages">
-    {{{lastMessages}}}
+    {{{last_message}}}
 </div>
 `;
 

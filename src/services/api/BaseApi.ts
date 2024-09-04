@@ -9,16 +9,15 @@ export default abstract class BaseAPI {
   protected _baseUrl: string = 'https://ya-praktikum.tech/api/v2';
 
   protected _getOptions(data: requestData = null): MethodOptions {
+
     const options: MethodOptions = {
-      headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+      credentials: 'include',
+      mode: 'cors'
     };
     if (data) {
       options.data = data;
     }
-    return options
+    return options;
   }
 
   protected _get(path: string, data: requestData = null): Promise<XMLHttpRequest> {

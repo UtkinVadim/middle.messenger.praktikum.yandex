@@ -6,9 +6,9 @@ import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {
-  companion: string;
-  lastMessages: Array<ChatCardMessage>;
-  newMessagesCount?: number;
+  title: string;
+  last_message?: ChatCardMessage;
+  unread_count?: number;
 }
 
 export default class ChatCard extends Block {

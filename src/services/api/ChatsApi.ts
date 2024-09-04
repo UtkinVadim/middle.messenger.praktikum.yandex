@@ -1,29 +1,19 @@
 import BaseAPI from './BaseApi.ts';
-import type { SignInData, signUpData, getUserInfoData } from '../../types/api/AuthApi.d.ts';
+import type { GetChatsData, CreateChatData } from '../../types/api/ChatsApi.d.ts';
 
-
-class AuthApi extends BaseAPI {
-  public async signIn(data: SignInData): Promise<XMLHttpRequest> {
-    const path = '/auth/signin';
-    return await this._post(path, data);
-  }
-
-  public async signUp(data: signUpData): Promise<XMLHttpRequest> {
-    const path = '/auth/signup';
-    return await this._post(path, data);
-  }
-
-  public async getUserInfo(data: getUserInfoData): Promise<XMLHttpRequest> {
-    const path = '/auth/user';
+class ChatsApi extends BaseAPI {
+  public async getChats(data: GetChatsData = {
+    limit: 8,
+    offset: 0
+  }): Promise<XMLHttpRequest> {
+    const path = '/chats';
     return await this._get(path, data);
   }
 
-  public async logout(): Promise<XMLHttpRequest> {
-    const path = '/auth/logout';
-    return await this._post(path);
+  public async createChat(data: CreateChatData): Promise<XMLHttpRequest> {
+    const path = '/chats';
+    return await this._post(path, data);
   }
 }
 
-const authApi = new AuthApi();
-
-export default authApi;
+export default new ChatsApi();

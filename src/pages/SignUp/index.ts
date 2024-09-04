@@ -1,16 +1,14 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
-import SignIn from '../SignIn';
-import router from '../../index.ts';
 import Block from '../../services/Block.ts';
-import authApi from '../../services/api/AuthApi.ts';
 import Button from '../../components/Button/index.ts';
 import ErrorText from '../../components/ErrorText/index.ts';
 import InputForm from '../../components/InputForm/index.ts';
 import type { signUpData } from '../../types/api/AuthApi.d.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
+import LoginController from '../../controllers/LoginController.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import {
   inputValidator,
@@ -23,6 +21,7 @@ import {
 
 export default class SignUp extends Block {
   public static url: string = '/sign-up';
+  public url: string = '/sign-up';
 
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
     const props = {
@@ -111,15 +110,6 @@ export default class SignUp extends Block {
   }
 
   public static onSubmit(formData: signUpData): void {
-    const errorTextBlock: HTMLElement | null = document.querySelector(`.${ErrorText.blockClassName}`);
-    const errorText: HTMLElement | null = document.querySelector(`.${ErrorText.textClassName}`);
-
-    if (!errorTextBlock || !errorText) {
-      throw new Error('Error block is not found');
-    }
-
-    errorTextBlock.style.display = 'none';
-
     const isFormDataInvalid = (
       validateName(formData.first_name)
       || validateLogin(formData.login)
@@ -132,24 +122,7 @@ export default class SignUp extends Block {
       return;
     }
 
-    authApi.signUp(formData)
-      .then(xhr => {
-        if (xhr.status === 200) {
-          router.go(SignIn.url);
-        } else {
-          const responseData = JSON.parse(xhr.responseText);
-          const reason: string | undefined = responseData.reason;
-
-          if (reason) {
-            errorText.textContent = reason;
-          } else {
-            errorText.textContent = 'Неизвестная ошибка'
-          }
-
-          errorTextBlock.style.display = 'block';
-        }
-
-      });
+    LoginController.signUp(formData);
   }
 
   public render(): HTMLElement {

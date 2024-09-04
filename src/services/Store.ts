@@ -26,6 +26,11 @@ class Store extends EventBus {
     set(this._state, path, value);
   };
 
+  public setChats(chats: Array<ChatCard>): void {
+    this._state.chats = chats;
+    this.emit(StoreEvents.ChatsUpdated);
+  }
+
   public addChat(chatCard: ChatCard): void {
     this._state.chats.push(chatCard);
     this.emit(StoreEvents.ChatsUpdated);

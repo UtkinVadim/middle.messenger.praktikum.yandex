@@ -1,4 +1,6 @@
 export type MethodOptions = {
+  credentials?: string;
+  mode?: string;
   method?: string;
   timeout?: number;
   headers?: Record<string, string>;

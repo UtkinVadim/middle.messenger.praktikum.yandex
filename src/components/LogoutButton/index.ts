@@ -1,8 +1,7 @@
 import tpl from './tpl.ts';
-import router from '../../index.ts';
-import SignIn from '../../pages/SignIn';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import LoginController from '../../controllers/LoginController.ts';
 
 
 export default class LogoutButton extends Block {
@@ -13,8 +12,8 @@ export default class LogoutButton extends Block {
     }
     props.events.click = function onClick(event: PointerEvent) {
       event.preventDefault();
-      event.stopPropagation();
-      router.go(SignIn.url);
+      event.stopPropagation()
+      LoginController.logout()
     };
     super(tagName, props);
   }

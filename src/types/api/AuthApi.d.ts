@@ -14,9 +14,3 @@ export interface SignInData {
 export interface signUpData extends userData {
   password: string;
 }
-
-export interface getUserInfoData extends userData{
-  id: number;
-  display_name: string;
-  avatar: string;
-}
