@@ -1,12 +1,10 @@
 import router from '../index.ts';
 import SignIn from '../pages/SignIn';
-import store from '../services/Store.ts';
 import LastChats from '../pages/LastChats';
-import ChatCard from '../components/ChatCard';
 import ErrorText from '../components/ErrorText';
 import authApi from '../services/api/AuthApi.ts';
-import chatsApi from '../services/api/ChatsApi.ts';
 import type { SignInData, signUpData } from '../types/api/AuthApi.d.ts';
+import ChatController from './ChatController.ts';
 
 class LoginController {
   public async signIn(formData: SignInData): Promise<void> {
@@ -26,7 +24,7 @@ class LoginController {
     if (xhr.status === 200) {
       router.go(LastChats.url);
     } else {
-      this._setError(xhr)
+      this._setError(xhr);
     }
   }
 
@@ -36,19 +34,7 @@ class LoginController {
   }
 
   private async _setUserData(): Promise<void> {
-    const xhr = await chatsApi.getChats();
-    if (xhr.status !== 200) {
-      throw new Error('Getting chats error');
-    }
-    const response = JSON.parse(xhr.response);
-
-    const chatCards = [];
-    for (const chatData of response) {
-      const chatCard = new ChatCard(chatData);
-      chatCards.push(chatCard);
-    }
-
-    store.setChats(chatCards);
+    ChatController.refreshChats();
   }
 
   private _getErrorBlock(): { errorTextBlock: HTMLElement, errorText: HTMLElement } {

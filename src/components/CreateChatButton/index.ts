@@ -1,9 +1,7 @@
 import tpl from './tpl.ts';
-import ChatCard from '../ChatCard';
 import Block from '../../services/Block.ts';
-import store from '../../services/Store.ts';
-import ChatsApi from '../../services/api/ChatsApi.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import chatController from '../../controllers/ChatController.ts';
 
 
 export default class CreateChatButton extends Block {
@@ -16,13 +14,7 @@ export default class CreateChatButton extends Block {
       event.preventDefault();
       event.stopPropagation();
 
-      const chatData = {title: "ChatTitle"};
-      ChatsApi.createChat(chatData).then((response) => {
-        console.log(response.responseText);
-      })
-
-      const chatCard = new ChatCard({title: 'Имя'});
-      store.addChat(chatCard);
+      chatController.createChat()
     };
     super(tagName, props);
   }

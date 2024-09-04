@@ -8,6 +8,7 @@ import store, { StoreEvents } from '../../services/Store.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import LogoutButton from '../../components/LogoutButton/index.ts';
 import CreateChatButton from '../../components/CreateChatButton/index.ts';
+import ChatController from '../../controllers/ChatController.ts';
 
 interface IPropsAndChildrenLastChats extends PropsAndChildren {
   chatCards?: Array<ChatCard>;
@@ -22,17 +23,21 @@ export default class LastChats extends Block {
   constructor(propsAndChildren: IPropsAndChildrenLastChats = {}, tagName: string = 'main') {
     const props = { ...propsAndChildren };
 
-    props.chatCards = store.getState().chats;
-    props.createChatButton = new CreateChatButton({attr: {class: 'create_chat menu_button'}});
-    props.logoutButton = new LogoutButton({attr: {class: 'menu_button'}});
-    props.settingsButton = new SettingsButton({attr: {class: 'menu_button'}});
+    props.createChatButton = new CreateChatButton({ attr: { class: 'create_chat menu_button' } });
+    props.logoutButton = new LogoutButton({ attr: { class: 'menu_button' } });
+    props.settingsButton = new SettingsButton({ attr: { class: 'menu_button' } });
+
+    ChatController.refreshChats()
+      .then(() => {
+        props.chatCards = store.getState().chats;
+      });
 
     super(tagName, props);
 
     store.on(StoreEvents.ChatsUpdated, () => {
-      this.setProps({chatCards: store.getState().chats});
+      this.setProps({ chatCards: store.getState().chats });
       this._render();
-    })
+    });
   }
 
   render() {
