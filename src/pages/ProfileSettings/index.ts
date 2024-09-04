@@ -20,6 +20,7 @@ import {
   validateEmail,
   validatePhone,
 } from '../../utils/validations.ts';
+import ProfileSettingsAvatar from '../../components/ProfileSettingsAvatar';
 
 interface inputMap {
   [key: string]: Input;
@@ -117,6 +118,7 @@ export default class ProfileSettings extends Block {
         submitContainerClass: 'profile_settings__buttons profile_settings__buttons__submit_button',
         onSubmit: ProfileSettings.onSubmit
       }),
+      avatar: new ProfileSettingsAvatar()
     };
 
     super(tagName, props);
