@@ -1,5 +1,11 @@
 import Block from './Block.ts';
 import isEqual from '../utils/isEqual.ts';
+import authApi from './api/AuthApi.ts';
+import router from '../index.ts';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
+
+const unauthorizedLinks = [SignIn.url, SignUp.url];
 
 class Route {
   protected _pathname: string;
@@ -14,11 +20,11 @@ class Route {
     this._props = props;
   }
 
-  match(pathname: string): boolean {
+  public match(pathname: string): boolean {
     return isEqual(pathname, this._pathname);
   }
 
-  render() {
+  public render() {
     const root = document.querySelector(this._props.rootQuery);
 
     if (root) {
@@ -42,7 +48,7 @@ export default class Router {
     this._rootQuery = rootQuery;
   }
 
-  use(pathname: string, block: Block): Router {
+  public use(pathname: string, block: Block): Router {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
     this.routes.push(route);
@@ -50,7 +56,7 @@ export default class Router {
     return this;
   }
 
-  start(): void {
+  public start(): void {
     window.onpopstate = ((event: any) => {
       this._onRoute(event.currentTarget.location.pathname);
     }).bind(this);
@@ -58,25 +64,36 @@ export default class Router {
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string): void {
+  private _onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
     if (!route) {
       return;
     }
 
-    route.render();
+    if (!unauthorizedLinks.includes(pathname)) {
+      authApi.getUserInfo()
+        .then((xhr) => {
+          if (xhr.status === 401) {
+            router.go(SignIn.url);
+          } else {
+            route.render();
+          }
+        });
+    } else {
+      route.render();
+    }
   }
 
-  go(pathname: string): void {
+  public go(pathname: string): void {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  getRoute(pathname: string): Route | undefined {
+  public getRoute(pathname: string): Route | undefined {
     return this.routes.find(route => route.match(pathname));
   }
 
-  back(): void {
+  public back(): void {
     this.history.back();
   }
 }

@@ -30,7 +30,6 @@ export default class Button extends Block {
 
     if (props.link) {
       props.events.click = function redirect(event: PointerEvent) {
-        console.log(props.link)
         if (!props.link?.url) {
           return
         }
