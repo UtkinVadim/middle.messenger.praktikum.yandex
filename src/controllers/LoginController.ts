@@ -10,8 +10,10 @@ import UserController from './UserController.ts';
 class LoginController {
   public async signIn(formData: SignInData): Promise<void> {
     const xhr = await authApi.signIn(formData);
+    console.log(xhr.status)
+    console.log(xhr.response)
 
-    if (xhr.status === 200) {
+    if (xhr.status === 200 || xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system') {
       await this._setUserData();
       router.go(LastChats.url);
     } else {
