@@ -1,6 +1,4 @@
 const tpl: string = `
-{{{avatarImage}}}
-{{{overlay}}}
 {{{fileInput}}}
 `;
 

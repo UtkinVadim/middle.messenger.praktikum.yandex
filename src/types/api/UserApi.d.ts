@@ -8,3 +8,7 @@ export interface changePasswordData {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface changeAvatarData {
+  avatar: File;
+}

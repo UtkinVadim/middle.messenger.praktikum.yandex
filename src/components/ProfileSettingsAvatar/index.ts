@@ -1,7 +1,10 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
+import Overlay from './Overlay/index.ts';
 import Block from '../../services/Block.ts';
+import FileInput from './FileInput/index.ts';
+import AvatarImage from './AvatarImage/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 export default class ProfileSettingsAvatar extends Block {
@@ -12,18 +15,11 @@ export default class ProfileSettingsAvatar extends Block {
     }
 
     props.attr.class = 'profile_settings__avatar';
+    props.overlay = new Overlay();
+    props.fileInput = new FileInput();
+    props.avatarImage = new AvatarImage();
 
     super(tagName, props);
-
-    this.setProps({
-      events: {
-        click(event: PointerEvent) {
-          event.preventDefault();
-          event.stopPropagation();
-          console.log('Change avatar');
-        },
-      },
-    });
   }
 
   render() {

@@ -5,6 +5,11 @@ import ErrorPage from './pages/Error/index.ts';
 import LastChats from './pages/LastChats/index.ts';
 import ChangePassword from './pages/ChangePassword';
 import ProfileSettings from './pages/ProfileSettings/index.ts';
+import UserController from './controllers/UserController.ts';
+
+try {
+  await UserController.refreshUserData();
+} catch {}
 
 const signUp = new SignUp();
 const signIn = new SignIn(signUp);
