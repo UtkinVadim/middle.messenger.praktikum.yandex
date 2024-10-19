@@ -9,7 +9,6 @@ export default abstract class BaseAPI {
   protected _baseUrl: string = 'https://ya-praktikum.tech/api/v2';
 
   protected _getOptions(data: requestData = null): MethodOptions {
-
     const options: MethodOptions = {
       credentials: 'include',
       mode: 'cors'

@@ -1,8 +1,7 @@
 import BaseAPI from './BaseApi.ts';
-import type { changeAvatarData } from '../../types/api/AvatarApi.d.ts';
 
 class AvatarApi extends BaseAPI {
-  public async changeAvatar(data: changeAvatarData): Promise<XMLHttpRequest> {
+  public async changeAvatar(data: FormData): Promise<XMLHttpRequest> {
     const path = '/user/profile/avatar';
     return await this._put(path, data);
   }
