@@ -9,11 +9,8 @@ class AvatarController {
     }
   }
 
-  public async getAvatarImage(pathToFile: string): Promise<string> {
-    const xhr: XMLHttpRequest = await avatarApi.getImage(pathToFile);
-    console.log(xhr.response instanceof Blob);
-    const blob = xhr.response;
-    return URL.createObjectURL(blob);
+  public getAvatarUrl(pathToFile: string): string {
+    return avatarApi.getImageUrl(pathToFile);
   }
 
 }

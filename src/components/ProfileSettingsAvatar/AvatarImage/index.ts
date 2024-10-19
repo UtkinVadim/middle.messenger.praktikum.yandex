@@ -13,10 +13,7 @@ export default class AvatarImage extends Block {
 
     const avatar = Store.getState().userInfo.avatar;
     if (avatar) {
-      AvatarController.getAvatarImage(avatar).then((image) => {
-        console.log(image);
-        props.attr.src = image;
-      });
+      props.attr.src = AvatarController.getAvatarUrl(avatar);
     } else {
       props.attr.src = '/empty_avatar.svg';
     }

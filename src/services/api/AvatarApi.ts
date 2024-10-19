@@ -14,10 +14,9 @@ class AvatarApi extends BaseAPI {
     return await this._post(path, data);
   }
 
-  public async getImage(pathToFile: string): Promise<XMLHttpRequest> {
+  public getImageUrl(pathToFile: string): string {
     const path = `/resources/${pathToFile}`;
-
-    return await this._get(path);
+    return this._baseUrl + path;
   }
 }
 
