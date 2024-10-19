@@ -15,8 +15,8 @@ const tpl: string = `
     {{{title}}}
 </div>
 
-<div class="chat_card__last_messages">
-    {{{last_message}}}
+<div class="chat_card__users">
+    {{{users}}}
 </div>
 `;
 

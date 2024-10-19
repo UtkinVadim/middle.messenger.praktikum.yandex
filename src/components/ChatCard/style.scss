@@ -43,8 +43,8 @@
     top: 15px;
 }
 
-/* Chat history */
-.chat_card__last_messages {
+/* Chat users */
+.chat_card__users {
     position: absolute;
     left: 90px;
     top: 60px;
@@ -53,8 +53,4 @@
     background-color: #E7E7E7;
     border-radius: 2px;
     font-size: 13px;
-}
-
-.chat_card__last_messages__message_text {
-    margin-left: 10px;
 }

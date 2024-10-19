@@ -1,5 +1,5 @@
 const tpl: string = `
-{{{ text }}}
+<li>Username</li>
 `;
 
 export default tpl;

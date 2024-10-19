@@ -2,16 +2,16 @@ import './style.scss';
 
 import tpl from './tpl.ts';
 import router from '../../index.ts';
+import Users from './Users/index.ts';
 import Block from '../../services/Block.ts';
 import Chat from '../../pages/Chat/index.ts';
-import ChatCardMessage from './Message/index.ts';
 import DeleteChatButton from './DeleteChatButton';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {
   id : number;
   title: string;
-  last_message?: ChatCardMessage;
+  users?: Users;
   unread_count?: number;
   deleteChatButton?: DeleteChatButton
 }
@@ -37,6 +37,7 @@ export default class ChatCard extends Block {
     };
 
     props.deleteChatButton = new DeleteChatButton({ chatId: props.id });
+    props.users = new Users({ chatId: props.id });
 
     super(tagName, props);
   }

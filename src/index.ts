@@ -6,6 +6,7 @@ import LastChats from './pages/LastChats/index.ts';
 import ChangePassword from './pages/ChangePassword';
 import ProfileSettings from './pages/ProfileSettings/index.ts';
 import UserController from './controllers/UserController.ts';
+import Chat from './pages/Chat';
 
 try {
   await UserController.refreshUserData();
@@ -37,5 +38,9 @@ router
   .use(LastChats.url, lastChats)
   .start();
 
-
 export default router;
+
+const activeChatPrefix = Chat.url + '/';
+if (window.location.pathname.includes(activeChatPrefix)) {
+  router.go(LastChats.url)
+}
