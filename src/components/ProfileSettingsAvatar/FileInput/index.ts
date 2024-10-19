@@ -1,6 +1,7 @@
 import tpl from './tpl.ts';
 import Block from '../../../services/Block.ts';
 import type { PropsAndChildren } from '../../../types/Block.d.ts';
+import AvatarController from '../../../controllers/AvatarController.ts';
 
 export default class FileInput extends Block {
   constructor(tagName: string = 'input', propsAndChildren: PropsAndChildren = {}) {
@@ -25,7 +26,7 @@ export default class FileInput extends Block {
         return
       }
       const file: File = files[0];
-      console.log('Change avatar to ', file);
+      AvatarController.setNewAvatar(file);
     };
 
     super(tagName, props);

@@ -6,6 +6,7 @@ import type { Indexed } from '../types/common.d.ts';
 export enum StoreEvents {
   ChatsUpdated = 'chatsUpdated',
   UserInfoUpdated = 'userInfoUpdated',
+  AvatarUpdated = 'avatarUpdated',
 }
 
 interface StoreData extends Indexed {
@@ -45,6 +46,11 @@ class Store extends EventBus {
   public updateUserInfo(userInfo: userInfo): void {
     this._state.userInfo = userInfo;
     this.emit(StoreEvents.UserInfoUpdated);
+  }
+
+  public updateUserAvatar(path: string): void {
+    this._state.userInfo.avatar = path;
+    this.emit(StoreEvents.AvatarUpdated);
   }
 }
 
