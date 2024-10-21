@@ -3,6 +3,7 @@ import './style.scss';
 import tpl from './tpl.ts';
 import router from '../../index.ts';
 import Users from './Users/index.ts';
+import AddUser from './AddUser/index.ts';
 import Block from '../../services/Block.ts';
 import Chat from '../../pages/Chat/index.ts';
 import DeleteChatButton from './DeleteChatButton';
@@ -36,8 +37,10 @@ export default class ChatCard extends Block {
       router.go(path);
     };
 
-    props.deleteChatButton = new DeleteChatButton({ chatId: props.id });
-    props.users = new Users({ chatId: props.id });
+    const chatIdProp = { chatId: props.id };
+    props.deleteChatButton = new DeleteChatButton(chatIdProp);
+    props.users = new Users(chatIdProp);
+    props.addUser = new AddUser(chatIdProp);
 
     super(tagName, props);
   }

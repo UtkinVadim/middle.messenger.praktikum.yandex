@@ -1,7 +1,4 @@
 const tpl: string = `
-<div class="chat_card__users-add-user">
-
-</div>
 <p>Chat users:</p>
 <div class="chat_card__users-list">
   <ul>

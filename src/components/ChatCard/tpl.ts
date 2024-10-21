@@ -15,6 +15,7 @@ const tpl: string = `
     {{{title}}}
 </div>
 
+{{{addUser}}}
 {{{users}}}
 `;
 
