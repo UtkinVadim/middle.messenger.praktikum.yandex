@@ -9,11 +9,11 @@ interface IPropsAndChildrenUsers extends PropsAndChildren {
 }
 
 export default class Users extends Block {
-  constructor(propsAndChildren: IPropsAndChildrenUsers, tagName: string = 'ul') {
-    const props = { ...propsAndChildren };
-    if (!props.attr) {
-      props.attr = {};
-    }
+  constructor(propsAndChildren: IPropsAndChildrenUsers, tagName: string = 'div') {
+    const props = {
+      ...propsAndChildren,
+      attr: {class: 'chat_card__users'}
+    };
 
     super(tagName, props);
   }
