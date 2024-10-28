@@ -1,6 +1,6 @@
 import BaseAPI from './BaseApi.ts';
 
-class ActiveChatApi extends BaseAPI {
+class ChatCardApi extends BaseAPI {
   public async getChatUsers(chatId: string): Promise<XMLHttpRequest> {
     const path = `/chats/${chatId}/users`;
     return await this._get(path);
@@ -8,4 +8,4 @@ class ActiveChatApi extends BaseAPI {
 
 }
 
-export default new ActiveChatApi();
+export default new ChatCardApi();

@@ -25,6 +25,7 @@ export default class AddUser extends Block {
     props.events.click = function onClick(event: PointerEvent) {
       event.preventDefault();
       event.stopPropagation();
+      console.log('Add user')
     };
 
     super(tagName, props);

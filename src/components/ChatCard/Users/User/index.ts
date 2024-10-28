@@ -1,7 +1,7 @@
 import tpl from './tpl.ts';
 import Block from '../../../../services/Block.ts';
 import type { PropsAndChildren } from '../../../../types/Block.d.ts';
-import type { userData } from '../../../../types/api/ActiveChatApi.d.ts';
+import type { userData } from '../../../../types/api/ChatCardApi.d.ts';
 
 interface IPropsAndChildrenUser extends PropsAndChildren {
   userData: userData;

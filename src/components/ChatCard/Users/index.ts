@@ -4,7 +4,7 @@ import tpl from './tpl.ts';
 import User from './User/index.ts';
 import Block from '../../../services/Block.ts';
 import type { PropsAndChildren } from '../../../types/Block.d.ts';
-import activeChatController from '../../../controllers/ActiveChatController.ts';
+import chatCardController from '../../../controllers/ChatCardController.ts';
 
 interface IPropsAndChildrenUsers extends PropsAndChildren {
   chatId: number;
@@ -34,7 +34,7 @@ export default class Users extends Block {
 
     super(tagName, props);
 
-    activeChatController.getChatUsers(props.chatId)
+    chatCardController.getChatUsers(props.chatId)
       .then((chatUsers) => {
           const users = chatUsers.map(userData => new User({ userData: userData }));
           this.setProps({ users: users });
