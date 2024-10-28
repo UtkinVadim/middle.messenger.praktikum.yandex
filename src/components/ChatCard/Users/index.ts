@@ -32,12 +32,14 @@ export default class Users extends Block {
 
     props.users = [];
 
+    super(tagName, props);
+
     activeChatController.getChatUsers(props.chatId)
       .then((chatUsers) => {
-        props.users = chatUsers.map(userData => new User({ userData: userData }));
-      });
-
-    super(tagName, props);
+          const users = chatUsers.map(userData => new User({ userData: userData }));
+          this.setProps({ users: users });
+        }
+      );
   }
 
   render() {

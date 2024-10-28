@@ -1,4 +1,5 @@
 const tpl: string = `
-{{ userData.display_name }}`;
+{{ userData.first_name }} {{ userData.last_name }}
+`;
 
 export default tpl;
