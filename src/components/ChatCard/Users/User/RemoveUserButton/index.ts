@@ -19,7 +19,7 @@ export default class RemoveUserButton extends Block {
     }
 
     props.attr.class = 'chat_card__users__remove_user';
-    props.attr.src = '/trash.svg';
+    props.attr.src = './trash.svg';
     props.attr.alt = 'Remove user';
 
     if (!props.events) {
