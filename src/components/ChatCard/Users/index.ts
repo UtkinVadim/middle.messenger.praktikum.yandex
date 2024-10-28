@@ -2,6 +2,7 @@ import './style.scss';
 
 import tpl from './tpl.ts';
 import User from './User/index.ts';
+import store, { StoreEvents } from '../../../services/Store.ts';
 import Block from '../../../services/Block.ts';
 import type { PropsAndChildren } from '../../../types/Block.d.ts';
 import chatCardController from '../../../controllers/ChatCardController.ts';
@@ -34,15 +35,23 @@ export default class Users extends Block {
 
     super(tagName, props);
 
-    chatCardController.getChatUsers(props.chatId)
-      .then((chatUsers) => {
-          const users = chatUsers.map(userData => new User({ userData: userData }));
-          this.setProps({ users: users });
-        }
-      );
+    this._updateChatUsers();
+
+    const event = `${StoreEvents.UserAdded}_${props.chatId}`;
+    store.on(event, () => {
+      this._updateChatUsers();
+    });
   }
 
   render() {
     return this.compile(tpl);
+  }
+
+  private async _updateChatUsers(): Promise<void> {
+    const chatId = this._props.chatId;
+
+    const chatUsers = await chatCardController.getChatUsers(chatId);
+    const users = chatUsers.map(userData => new User({ userData: userData }));
+    this.setProps({ users: users });
   }
 }

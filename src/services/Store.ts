@@ -7,6 +7,7 @@ export enum StoreEvents {
   ChatsUpdated = 'chatsUpdated',
   UserInfoUpdated = 'userInfoUpdated',
   AvatarUpdated = 'avatarUpdated',
+  UserAdded = 'userAdded',
 }
 
 interface StoreData extends Indexed {
@@ -51,6 +52,11 @@ class Store extends EventBus {
   public updateUserAvatar(path: string): void {
     this._state.userInfo.avatar = path;
     this.emit(StoreEvents.AvatarUpdated);
+  }
+
+  public userAdded(chatId: string): void {
+    const event = `${StoreEvents.UserAdded}_${chatId}`;
+    this.emit(event);
   }
 }
 

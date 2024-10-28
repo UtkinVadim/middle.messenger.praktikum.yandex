@@ -1,3 +1,4 @@
+import store from '../services/Store.ts';
 import ChatCardApi from '../services/api/ChatCardApi.ts';
 import type { userData } from '../types/api/ChatCardApi.d.ts';
 
@@ -11,14 +12,17 @@ class ChatCardController {
   }
 
   public async addUserToChat(userId: number, chatId: number): Promise<void> {
+    const chatIdAsString = String(chatId);
     const data = {
       users: [userId],
-      chatId: String(chatId)
+      chatId: chatIdAsString
     };
     const xhr = await ChatCardApi.addUserToChat(data);
     if (xhr.status !== 200) {
       throw new Error('Failed to add user in chat');
     }
+
+    store.userAdded(chatIdAsString);
   }
 }
 
