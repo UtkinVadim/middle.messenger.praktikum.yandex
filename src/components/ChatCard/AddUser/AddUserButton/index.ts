@@ -27,8 +27,10 @@ export default class AddUserButton extends Block {
       event.preventDefault();
       event.stopPropagation();
       const formElement = document.getElementById(`add_user_form_${props.chatId}`) as HTMLFormElement;
-      const formData = new FormData(formElement);
-      const userId = Number(formData.get('user_id'));
+      const userIdInput = formElement.elements[0] as HTMLInputElement;
+      const userId = Number(userIdInput.value);
+
+      userIdInput.value = '';
 
       if (!userId) {
         throw new Error('User id must be a number');

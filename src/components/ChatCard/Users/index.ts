@@ -9,7 +9,7 @@ import chatCardController from '../../../controllers/ChatCardController.ts';
 
 interface IPropsAndChildrenUsers extends PropsAndChildren {
   chatId: number;
-  users: Array<User>;
+  users?: Array<User>;
 }
 
 export default class Users extends Block {
@@ -51,7 +51,7 @@ export default class Users extends Block {
     const chatId: number = this._props.chatId;
 
     const chatUsers = await chatCardController.getChatUsers(chatId);
-    const users = chatUsers.map(userData => new User({
+    const users = chatUsers.reverse().map(userData => new User({
       userData: userData,
       chatId: chatId
     }));

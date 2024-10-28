@@ -7,7 +7,7 @@ import type { PropsAndChildren } from '../../../types/Block.d.ts';
 
 interface IPropsAndChildrenAddUser extends PropsAndChildren {
   chatId: number;
-  submitButton: AddUserButton;
+  submitButton?: AddUserButton;
 }
 
 export default class AddUser extends Block {
