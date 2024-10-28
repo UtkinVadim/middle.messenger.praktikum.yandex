@@ -7,3 +7,8 @@ export interface userData {
   avatar: string;
   role: string;
 }
+
+export interface addUserToChatData {
+  users: Array<number>;
+  chatId: string;
+}
