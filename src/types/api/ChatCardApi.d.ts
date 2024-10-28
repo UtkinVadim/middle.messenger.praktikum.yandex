@@ -8,7 +8,7 @@ export interface userData {
   role: string;
 }
 
-export interface addUserToChatData {
+export interface chatCardUserActionData {
   users: Array<number>;
   chatId: string;
 }

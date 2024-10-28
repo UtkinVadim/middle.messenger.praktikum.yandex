@@ -1,6 +1,5 @@
 const tpl: string = `
-<p>Chat users:</p>
-<ul>
+<ul class="chat_card__users__list">
     {{{users}}}
 </ul>
 `;

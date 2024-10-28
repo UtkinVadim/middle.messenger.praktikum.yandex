@@ -37,7 +37,7 @@ export default class Users extends Block {
 
     this._updateChatUsers();
 
-    const event = `${StoreEvents.UserAdded}_${props.chatId}`;
+    const event = `${StoreEvents.UserListUpdated}_${props.chatId}`;
     store.on(event, () => {
       this._updateChatUsers();
     });
@@ -48,10 +48,13 @@ export default class Users extends Block {
   }
 
   private async _updateChatUsers(): Promise<void> {
-    const chatId = this._props.chatId;
+    const chatId: number = this._props.chatId;
 
     const chatUsers = await chatCardController.getChatUsers(chatId);
-    const users = chatUsers.map(userData => new User({ userData: userData }));
+    const users = chatUsers.map(userData => new User({
+      userData: userData,
+      chatId: chatId
+    }));
     this.setProps({ users: users });
   }
 }

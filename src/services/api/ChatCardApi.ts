@@ -1,6 +1,6 @@
 import BaseAPI from './BaseApi.ts';
 
-import type { addUserToChatData } from '../../types/api/ChatCardApi.d.ts';
+import type { chatCardUserActionData } from '../../types/api/ChatCardApi.d.ts';
 
 class ChatCardApi extends BaseAPI {
   public async getChatUsers(chatId: string): Promise<XMLHttpRequest> {
@@ -8,9 +8,14 @@ class ChatCardApi extends BaseAPI {
     return await this._get(path);
   }
 
-  public async addUserToChat(data: addUserToChatData): Promise<XMLHttpRequest> {
+  public async addUserToChat(data: chatCardUserActionData): Promise<XMLHttpRequest> {
     const path = `/chats/users`;
     return await this._put(path, data);
+  }
+
+  public async removeUserFromChat(data: chatCardUserActionData): Promise<XMLHttpRequest> {
+    const path = `/chats/users`;
+    return await this._delete(path, data);
   }
 
 }
