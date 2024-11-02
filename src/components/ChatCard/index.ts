@@ -6,7 +6,7 @@ import Users from './Users/index.ts';
 import AddUser from './AddUser/index.ts';
 import Block from '../../services/Block.ts';
 import Chat from '../../pages/Chat/index.ts';
-import DeleteChatButton from './DeleteChatButton';
+import DeleteChatButton from './DeleteChatButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {

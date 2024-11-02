@@ -1,5 +1,4 @@
 import tpl from './tpl.ts';
-import Store from '../../../services/Store.ts';
 import Block from '../../../services/Block.ts';
 import store, { StoreEvents } from '../../../services/Store.ts';
 import type { PropsAndChildren } from '../../../types/Block.d.ts';
@@ -12,7 +11,7 @@ export default class AvatarImage extends Block {
       props.attr = {};
     }
 
-    const { avatar } = Store.getState().userInfo;
+    const { avatar } = store.getState().userInfo;
     if (avatar) {
       props.attr.src = AvatarController.getAvatarUrl(avatar);
     } else {
@@ -26,15 +25,15 @@ export default class AvatarImage extends Block {
     store.on(StoreEvents.AvatarUpdated, () => {
       let avatarUrl;
 
-      const path = Store.getState().userInfo.avatar;
+      const path = store.getState().userInfo.avatar;
       if (path) {
         avatarUrl = AvatarController.getAvatarUrl(path);
       } else {
         avatarUrl = '/empty_avatar.svg';
       }
 
-      const props = { attr: { src: avatarUrl } };
-      this.setProps(props);
+      const newProps = { attr: { src: avatarUrl } };
+      this.setProps(newProps);
     });
   }
 

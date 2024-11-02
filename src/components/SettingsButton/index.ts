@@ -2,8 +2,8 @@ import tpl from './tpl.ts';
 import router from '../../index.ts';
 
 import Block from '../../services/Block.ts';
-import ProfileSettings from '../../pages/ProfileSettings';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import ProfileSettings from '../../pages/ProfileSettings/index.ts';
 
 export default class SettingsButton extends Block {
   constructor(propsAndChildren: PropsAndChildren, tagName: string = 'button') {

@@ -1,14 +1,13 @@
 import router from '../index.ts';
 import store from '../services/Store.ts';
 import Chat from '../pages/Chat/index.ts';
-import ChatCard from '../components/ChatCard';
-import ChatsApi from '../services/api/ChatsApi.ts';
 import chatsApi from '../services/api/ChatsApi.ts';
+import ChatCard from '../components/ChatCard/index.ts';
 
 class ChatController {
   public async createChat(title: string = 'New chat'): Promise<void> {
     const requestData = { title };
-    const xhr = await ChatsApi.createChat(requestData);
+    const xhr = await chatsApi.createChat(requestData);
     if (xhr.status !== 200) {
       throw new Error(xhr.response);
     }
@@ -17,13 +16,16 @@ class ChatController {
 
     this._addChatUrl(title, chatId);
 
-    const chatCard = new ChatCard({ id: chatId, title });
+    const chatCard = new ChatCard({
+      id: chatId,
+      title,
+    });
     store.addChat(chatCard);
   }
 
   public async deleteChat(chatId: number): Promise<void> {
     const requestData = { chatId };
-    const xhr = await ChatsApi.deleteChat(requestData);
+    const xhr = await chatsApi.deleteChat(requestData);
     if (xhr.status === 200) {
       this.refreshChats();
     }
@@ -36,19 +38,21 @@ class ChatController {
     }
     const response = JSON.parse(xhr.response);
 
-    const chatCards = [];
-    for (const chatData of response) {
+    const chatCards = response.map((chatData: any) => {
       const chatCard = new ChatCard(chatData);
       this._addChatUrl(chatData.title, chatData.id);
-      chatCards.push(chatCard);
-    }
+      return chatCard;
+    });
 
     store.setChats(chatCards);
   }
 
   private _addChatUrl(title: string, chatId: number): void {
     const newChatUrl = `${Chat.url}/${chatId}`;
-    const newChat = new Chat({ chatId, title });
+    const newChat = new Chat({
+      chatId,
+      title,
+    });
     router.use(newChatUrl, newChat);
   }
 }
