@@ -200,7 +200,8 @@ export default abstract class Block {
 
   // eslint-disable-next-line
   public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
-    // console.log(oldProps, newProps);
+    // eslint-disable-next-line
+    console.log(oldProps, newProps);
     return true;
   }
 
