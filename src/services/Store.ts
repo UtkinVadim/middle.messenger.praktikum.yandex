@@ -1,8 +1,9 @@
 import EventBus from './EventBus.ts';
-import ChatCard from '../components/ChatCard';
-import { userInfo } from '../types/api/AuthApi';
 import type { Indexed } from '../types/common.d.ts';
+import ChatCard from '../components/ChatCard/index.ts';
+import type { userInfoData } from '../types/api/AuthApi.d.ts';
 
+// eslint-disable-next-line no-shadow
 export enum StoreEvents {
   ChatsUpdated = 'chatsUpdated',
   UserInfoUpdated = 'userInfoUpdated',
@@ -12,7 +13,7 @@ export enum StoreEvents {
 
 interface StoreData extends Indexed {
   chats: Array<ChatCard>;
-  userInfo: userInfo;
+  userInfo: userInfoData;
 }
 
 class Store extends EventBus {
@@ -26,8 +27,8 @@ class Store extends EventBus {
       phone: '',
       login: '',
       avatar: null,
-      email: ''
-    }
+      email: '',
+    },
   };
 
   public getState(): StoreData {
@@ -44,7 +45,7 @@ class Store extends EventBus {
     this.emit(StoreEvents.ChatsUpdated);
   }
 
-  public updateUserInfo(userInfo: userInfo): void {
+  public updateUserInfo(userInfo: userInfoData): void {
     this._state.userInfo = userInfo;
     this.emit(StoreEvents.UserInfoUpdated);
   }

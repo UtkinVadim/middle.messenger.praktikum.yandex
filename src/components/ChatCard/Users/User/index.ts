@@ -20,7 +20,7 @@ export default class User extends Block {
     if (currentUserId !== props.userData.id) {
       props.removeUserButton = new RemoveUserButton({
         chatId: props.chatId,
-        userId: props.userData.id
+        userId: props.userData.id,
       });
     }
 

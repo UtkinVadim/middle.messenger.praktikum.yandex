@@ -12,7 +12,6 @@ import InputWithLabel from '../../components/InputWithLabel/index.ts';
 import LoginController from '../../controllers/LoginController.ts';
 import { inputValidator, validateLogin, validatePassword } from '../../utils/validations.ts';
 
-
 export default class SignIn extends Block {
   public static url = '/';
 
@@ -46,15 +45,15 @@ export default class SignIn extends Block {
         inputsContainerClass: 'sign_in__inputs',
         submitButton: new Button({
           label: 'Sign In',
-          type: 'submit'
+          type: 'submit',
         }),
         submitContainerClass: 'sign_in__buttons',
-        onSubmit: SignIn.onSubmit
+        onSubmit: SignIn.onSubmit,
       }),
 
       signUp: new Button({
         label: 'Sign Up',
-        link: signUpBlock
+        link: signUpBlock,
       }),
 
       errorText: new ErrorText(),
@@ -68,7 +67,7 @@ export default class SignIn extends Block {
     if (isFormDataInvalid) {
       return;
     }
-    LoginController.signIn(formData)
+    LoginController.signIn(formData);
   }
 
   public render(): HTMLElement {

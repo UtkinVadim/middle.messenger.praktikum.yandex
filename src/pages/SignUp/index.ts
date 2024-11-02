@@ -21,6 +21,7 @@ import {
 
 export default class SignUp extends Block {
   public static url: string = '/sign-up';
+
   public url: string = '/sign-up';
 
   constructor(tagName: string = 'main', propsAndChildren: PropsAndChildren = {}) {
@@ -99,10 +100,10 @@ export default class SignUp extends Block {
         inputsContainerClass: 'sign_up__inputs',
         submitButton: new Button({
           label: 'Create profile',
-          type: 'submit'
+          type: 'submit',
         }),
         submitContainerClass: 'sign_up__buttons',
-        onSubmit: SignUp.onSubmit
+        onSubmit: SignUp.onSubmit,
       }),
       errorText: new ErrorText(),
     };

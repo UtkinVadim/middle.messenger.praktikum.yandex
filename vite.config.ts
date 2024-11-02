@@ -8,6 +8,6 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    target: ['chrome90', 'firefox89', 'safari15', 'edge90']
+    target: ['chrome90', 'firefox89', 'safari15', 'edge90'],
   },
 });

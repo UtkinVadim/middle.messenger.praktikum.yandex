@@ -4,20 +4,20 @@ import type { GetChatsData, CreateChatData, DeleteChatData } from '../../types/a
 class ChatsApi extends BaseAPI {
   public async getChats(data: GetChatsData = {
     limit: 8,
-    offset: 0
+    offset: 0,
   }): Promise<XMLHttpRequest> {
     const path = '/chats';
-    return await this._get(path, data);
+    return this._get(path, data);
   }
 
   public async createChat(data: CreateChatData): Promise<XMLHttpRequest> {
     const path = '/chats';
-    return await this._post(path, data);
+    return this._post(path, data);
   }
 
   public async deleteChat(data: DeleteChatData): Promise<XMLHttpRequest> {
     const path = '/chats';
-    return await this._delete(path, data);
+    return this._delete(path, data);
   }
 }
 

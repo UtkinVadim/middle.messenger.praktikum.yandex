@@ -1,15 +1,16 @@
+import Chat from './pages/Chat/index.ts';
 import Router from './services/Router.ts';
 import SignIn from './pages/SignIn/index.ts';
 import SignUp from './pages/SignUp/index.ts';
 import ErrorPage from './pages/Error/index.ts';
 import LastChats from './pages/LastChats/index.ts';
-import ChangePassword from './pages/ChangePassword';
-import ProfileSettings from './pages/ProfileSettings/index.ts';
+import ChangePassword from './pages/ChangePassword/index.ts';
 import UserController from './controllers/UserController.ts';
-import Chat from './pages/Chat';
+import ProfileSettings from './pages/ProfileSettings/index.ts';
 
 try {
   await UserController.refreshUserData();
+  // eslint-disable-next-line
 } catch {}
 
 const signUp = new SignUp();
@@ -26,7 +27,6 @@ const changePassword = new ChangePassword();
 const profileSettings = new ProfileSettings(changePassword);
 const lastChats = new LastChats();
 
-
 const router = new Router('.app');
 router
   .use(SignIn.url, signIn)
@@ -40,7 +40,7 @@ router
 
 export default router;
 
-const activeChatPrefix = Chat.url + '/';
+const activeChatPrefix = `${Chat.url}/`;
 if (window.location.pathname.includes(activeChatPrefix)) {
-  router.go(LastChats.url)
+  router.go(LastChats.url);
 }

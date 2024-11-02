@@ -46,19 +46,19 @@ export default abstract class Block {
     const {
       children,
       props,
-      lists
+      lists,
     } = Block._getChildren(propsAndChildren);
 
     this._meta = {
       tagName,
-      props
+      props,
     };
 
     this._children = this._makePropsProxy(children);
     this._lists = this._makePropsProxy(lists);
     this._props = this._makePropsProxy({
       ...props,
-      __id: this._id
+      __id: this._id,
     });
 
     this._registerEvents();
@@ -111,7 +111,7 @@ export default abstract class Block {
     return {
       children,
       props,
-      lists
+      lists,
     };
   }
 
@@ -198,9 +198,10 @@ export default abstract class Block {
   // Public
   public abstract render(): HTMLElement;
 
-  // @ts-ignore
+  // eslint-disable-next-line
   public componentDidUpdate(oldProps: BaseProp, newProps: BaseProp): boolean {
-    // console.log(oldProps, newProps);
+    // eslint-disable-next-line
+    console.log(oldProps, newProps);
     return true;
   }
 
@@ -277,7 +278,7 @@ export default abstract class Block {
     const {
       children,
       props,
-      lists
+      lists,
     } = Block._getChildren(newProps);
 
     if (Object.values(children).length) {

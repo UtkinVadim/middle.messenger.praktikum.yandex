@@ -23,7 +23,6 @@ export default class Overlay extends Block {
         throw new Error('avatarInput not found');
       }
       fileInput.click();
-
     };
 
     super(tagName, props);

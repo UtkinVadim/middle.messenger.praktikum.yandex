@@ -1,17 +1,17 @@
 import router from '../index.ts';
-import SignIn from '../pages/SignIn';
-import LastChats from '../pages/LastChats';
-import ErrorText from '../components/ErrorText';
+import SignIn from '../pages/SignIn/index.ts';
 import authApi from '../services/api/AuthApi.ts';
-import type { SignInData, signUpData } from '../types/api/AuthApi.d.ts';
 import ChatController from './ChatController.ts';
 import UserController from './UserController.ts';
+import LastChats from '../pages/LastChats/index.ts';
+import ErrorText from '../components/ErrorText/index.ts';
+import type { SignInData, signUpData } from '../types/api/AuthApi.d.ts';
 
 class LoginController {
   public async signIn(formData: SignInData): Promise<void> {
     const xhr = await authApi.signIn(formData);
 
-    if (xhr.status === 200 || xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system') {
+    if (xhr.status === 200 || (xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system')) {
       await this._setUserData();
       router.go(LastChats.url);
     } else {
@@ -47,21 +47,21 @@ class LoginController {
       throw new Error('Error block is not found');
     }
     return {
-      errorTextBlock: errorTextBlock,
-      errorText: errorText
+      errorTextBlock,
+      errorText,
     };
   }
 
   private _setError(xhr: XMLHttpRequest): void {
     const {
       errorTextBlock,
-      errorText
+      errorText,
     } = this._getErrorBlock();
 
     errorTextBlock.style.display = 'none';
 
     const responseData = JSON.parse(xhr.responseText);
-    const reason: string | undefined = responseData.reason;
+    const { reason } = responseData;
 
     if (reason) {
       errorText.textContent = reason;

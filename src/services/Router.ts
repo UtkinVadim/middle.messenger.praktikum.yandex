@@ -1,43 +1,15 @@
+import Route from './Route.ts';
 import Block from './Block.ts';
-import isEqual from '../utils/isEqual.ts';
-import authApi from './api/AuthApi.ts';
 import router from '../index.ts';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
+import authApi from './api/AuthApi.ts';
+import SignIn from '../pages/SignIn/index.ts';
+import SignUp from '../pages/SignUp/index.ts';
 
 const unauthorizedLinks = [SignIn.url, SignUp.url];
 
-class Route {
-  protected _pathname: string;
-  protected _block: Block;
-  protected _props: Record<string, any>;
-
-  constructor(pathname: string,
-    block: Block,
-    props: Record<string, any>) {
-    this._pathname = pathname;
-    this._block = block;
-    this._props = props;
-  }
-
-  public match(pathname: string): boolean {
-    return isEqual(pathname, this._pathname);
-  }
-
-  public render() {
-    const root = document.querySelector(this._props.rootQuery);
-
-    if (root) {
-      root.innerHTML = '';
-      root.appendChild(this._block.getContent());
-    }
-
-    this._block.dispatchComponentDidMount();
-  }
-}
-
 export default class Router {
   public routes: Route[];
+
   public history: History;
 
   protected _rootQuery: string;
@@ -59,7 +31,7 @@ export default class Router {
   public start(): void {
     window.onpopstate = ((event: any) => {
       this._onRoute(event.currentTarget.location.pathname);
-    }).bind(this);
+    });
 
     this._onRoute(window.location.pathname);
   }
@@ -90,7 +62,7 @@ export default class Router {
   }
 
   public getRoute(pathname: string): Route | undefined {
-    return this.routes.find(route => route.match(pathname));
+    return this.routes.find((route) => route.match(pathname));
   }
 
   public back(): void {

@@ -21,9 +21,9 @@ export default class FileInput extends Block {
       event.preventDefault();
       event.stopPropagation();
       const target: HTMLInputElement = event.target as HTMLInputElement;
-      const files: FileList | null = target.files
+      const { files } = target;
       if (!files) {
-        return
+        return;
       }
       const file: File = files[0];
       AvatarController.setNewAvatar(file);

@@ -1,3 +1,3 @@
-const tpl: string = `+`;
+const tpl: string = '+';
 
 export default tpl;
