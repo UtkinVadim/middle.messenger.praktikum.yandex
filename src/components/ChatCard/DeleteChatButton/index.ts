@@ -5,7 +5,6 @@ import Block from '../../../services/Block.ts';
 import type { PropsAndChildren } from '../../../types/Block.d.ts';
 import ChatController from '../../../controllers/ChatController.ts';
 
-
 interface IPropsAndChildrenDeleteChatButton extends PropsAndChildren {
   chatId : number;
 }

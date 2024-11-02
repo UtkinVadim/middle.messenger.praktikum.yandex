@@ -12,7 +12,7 @@ export default class AvatarImage extends Block {
       props.attr = {};
     }
 
-    const avatar = Store.getState().userInfo.avatar;
+    const { avatar } = Store.getState().userInfo;
     if (avatar) {
       props.attr.src = AvatarController.getAvatarUrl(avatar);
     } else {
@@ -33,7 +33,7 @@ export default class AvatarImage extends Block {
         avatarUrl = '/empty_avatar.svg';
       }
 
-      const props = {attr: {src: avatarUrl}};
+      const props = { attr: { src: avatarUrl } };
       this.setProps(props);
     });
   }

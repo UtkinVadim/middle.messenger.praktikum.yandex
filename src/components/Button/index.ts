@@ -31,7 +31,7 @@ export default class Button extends Block {
     if (props.link) {
       props.events.click = function redirect(event: PointerEvent) {
         if (!props.link?.url) {
-          return
+          return;
         }
         router.go(props.link.url);
         event.preventDefault();

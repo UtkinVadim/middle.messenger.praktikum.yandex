@@ -15,7 +15,7 @@ export interface signUpData extends userData {
   password: string;
 }
 
-export interface userInfo extends userData {
+export interface userInfoData extends userData {
   [key: string]: any;
 
   id: number;

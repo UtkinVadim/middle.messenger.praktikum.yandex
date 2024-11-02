@@ -5,10 +5,9 @@ import Block from '../../services/Block.ts';
 import ProfileSettings from '../../pages/ProfileSettings';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
-
 export default class SettingsButton extends Block {
   constructor(propsAndChildren: PropsAndChildren, tagName: string = 'button') {
-        const props = { ...propsAndChildren };
+    const props = { ...propsAndChildren };
     if (!props.events) {
       props.events = {};
     }

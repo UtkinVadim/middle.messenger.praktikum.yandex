@@ -15,7 +15,7 @@ class ChatCardController {
     const chatIdAsString = String(chatId);
     const data = {
       users: [userId],
-      chatId: chatIdAsString
+      chatId: chatIdAsString,
     };
     const xhr = await ChatCardApi.addUserToChat(data);
     if (xhr.status !== 200) {
@@ -29,7 +29,7 @@ class ChatCardController {
     const chatIdAsString = String(chatId);
     const data = {
       users: [userId],
-      chatId: chatIdAsString
+      chatId: chatIdAsString,
     };
     const xhr = await ChatCardApi.removeUserFromChat(data);
     if (xhr.status !== 200) {

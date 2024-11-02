@@ -2,7 +2,6 @@ import './style.scss';
 
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
-import { userInfo } from '../../types/api/AuthApi';
 import Button from '../../components/Button/index.ts';
 import ChangePassword from '../ChangePassword/index.ts';
 import InputForm from '../../components/InputForm/index.ts';
@@ -10,9 +9,11 @@ import store, { StoreEvents } from '../../services/Store.ts';
 import BackButton from '../../components/BackButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import userController from '../../controllers/UserController.ts';
+import type { userInfoData } from '../../types/api/AuthApi.d.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import type { changeUserData } from '../../types/api/UserApi.d.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
+import ProfileSettingsAvatar from '../../components/ProfileSettingsAvatar/index.ts';
 import {
   inputValidator,
   validateName,
@@ -20,9 +21,8 @@ import {
   validateEmail,
   validatePhone,
 } from '../../utils/validations.ts';
-import ProfileSettingsAvatar from '../../components/ProfileSettingsAvatar';
 
-interface inputMap {
+interface inputMapData {
   [key: string]: Input;
 }
 
@@ -116,33 +116,33 @@ export default class ProfileSettings extends Block {
           type: 'submit',
         }),
         submitContainerClass: 'profile_settings__buttons profile_settings__buttons__submit_button',
-        onSubmit: ProfileSettings.onSubmit
+        onSubmit: ProfileSettings.onSubmit,
       }),
-      avatar: new ProfileSettingsAvatar()
+      avatar: new ProfileSettingsAvatar(),
     };
 
     super(tagName, props);
 
     store.on(StoreEvents.UserInfoUpdated, () => {
-      const userInfo = store.getState().userInfo;
-      const inputMap: inputMap = {
+      const { userInfo } = store.getState();
+      const inputMap: inputMapData = {
         email: emailInput,
         login: loginInput,
         first_name: firstNameInput,
         second_name: secondNameInput,
         display_name: displayNameInput,
-        phone: phoneInput
+        phone: phoneInput,
       };
 
-      for (let [key, value] of Object.entries(userInfo)) {
-        const input = inputMap[key];
-        if (!input) {
-          continue;
-        }
-        const newProps = { attr: { value: value } };
-        input.setProps(newProps);
-      }
-
+      Object.entries(userInfo)
+        .forEach(([key, value]) => {
+          const input = inputMap[key];
+          if (!input) {
+            return;
+          }
+          const newProps = { attr: { value } };
+          input.setProps(newProps);
+        });
     });
   }
 
@@ -150,7 +150,7 @@ export default class ProfileSettings extends Block {
     return this.compile(tpl);
   }
 
-  public static onSubmit(formData: userInfo): void {
+  public static onSubmit(formData: userInfoData): void {
     const dataToSave: changeUserData = {
       first_name: formData.first_name,
       second_name: formData.second_name,

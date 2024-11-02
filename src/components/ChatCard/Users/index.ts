@@ -48,13 +48,13 @@ export default class Users extends Block {
   }
 
   private async _updateChatUsers(): Promise<void> {
-    const chatId: number = this._props.chatId;
+    const { chatId } = this._props;
 
     const chatUsers = await chatCardController.getChatUsers(chatId);
-    const users = chatUsers.reverse().map(userData => new User({
-      userData: userData,
-      chatId: chatId
+    const users = chatUsers.reverse().map((userData) => new User({
+      userData,
+      chatId,
     }));
-    this.setProps({ users: users });
+    this.setProps({ users });
   }
 }

@@ -3,7 +3,6 @@ import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import chatController from '../../controllers/ChatController.ts';
 
-
 export default class CreateChatButton extends Block {
   constructor(propsAndChildren: PropsAndChildren, tagName: string = 'button') {
     const props = { ...propsAndChildren };
@@ -14,7 +13,7 @@ export default class CreateChatButton extends Block {
       event.preventDefault();
       event.stopPropagation();
 
-      chatController.createChat()
+      chatController.createChat();
     };
     super(tagName, props);
   }

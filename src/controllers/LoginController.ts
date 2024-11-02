@@ -47,21 +47,21 @@ class LoginController {
       throw new Error('Error block is not found');
     }
     return {
-      errorTextBlock: errorTextBlock,
-      errorText: errorText
+      errorTextBlock,
+      errorText,
     };
   }
 
   private _setError(xhr: XMLHttpRequest): void {
     const {
       errorTextBlock,
-      errorText
+      errorText,
     } = this._getErrorBlock();
 
     errorTextBlock.style.display = 'none';
 
     const responseData = JSON.parse(xhr.responseText);
-    const reason: string | undefined = responseData.reason;
+    const { reason } = responseData;
 
     if (reason) {
       errorText.textContent = reason;

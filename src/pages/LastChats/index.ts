@@ -3,12 +3,12 @@ import './style.scss';
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
 import ChatCard from '../../components/ChatCard/index.ts';
-import SettingsButton from '../../components/SettingsButton';
 import store, { StoreEvents } from '../../services/Store.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
-import LogoutButton from '../../components/LogoutButton/index.ts';
-import CreateChatButton from '../../components/CreateChatButton/index.ts';
 import ChatController from '../../controllers/ChatController.ts';
+import LogoutButton from '../../components/LogoutButton/index.ts';
+import SettingsButton from '../../components/SettingsButton/index.ts';
+import CreateChatButton from '../../components/CreateChatButton/index.ts';
 
 interface IPropsAndChildrenLastChats extends PropsAndChildren {
   chatCards?: Array<ChatCard>;

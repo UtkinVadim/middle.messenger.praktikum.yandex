@@ -54,7 +54,6 @@ class AvatarController {
       reader.readAsDataURL(file);
     });
   }
-
 }
 
 export default new AvatarController();

@@ -9,8 +9,8 @@ import type { PropsAndChildren } from '../../types/Block.d.ts';
 import userController from '../../controllers/UserController.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
+import type { changePasswordData } from '../../types/api/UserApi.d.ts';
 import { inputValidator, validatePassword } from '../../utils/validations.ts';
-import { changePasswordData } from '../../types/api/UserApi';
 
 type changePasswordFormData = {
     oldPassword: string;
@@ -65,7 +65,7 @@ export default class ChangePassword extends Block {
         inputsContainerClass: 'change_password__inputs',
         submitButton: new Button({ label: 'Save Up', type: 'submit' }),
         submitContainerClass: 'change_password__buttons',
-        onSubmit: ChangePassword.onSubmit
+        onSubmit: ChangePassword.onSubmit,
       }),
       backButton: new BackButton(),
     };
@@ -79,8 +79,8 @@ export default class ChangePassword extends Block {
   public static onSubmit(formData: changePasswordFormData): void {
     const data: changePasswordData = {
       oldPassword: formData.oldPassword,
-      newPassword: formData.newPassword
-    }
+      newPassword: formData.newPassword,
+    };
     userController.changePassword(data);
   }
 }

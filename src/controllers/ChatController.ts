@@ -7,7 +7,7 @@ import chatsApi from '../services/api/ChatsApi.ts';
 
 class ChatController {
   public async createChat(title: string = 'New chat'): Promise<void> {
-    const requestData = { title: title };
+    const requestData = { title };
     const xhr = await ChatsApi.createChat(requestData);
     if (xhr.status !== 200) {
       throw new Error(xhr.response);
@@ -17,12 +17,12 @@ class ChatController {
 
     this._addChatUrl(title, chatId);
 
-    const chatCard = new ChatCard({id: chatId, title: title});
+    const chatCard = new ChatCard({ id: chatId, title });
     store.addChat(chatCard);
   }
 
   public async deleteChat(chatId: number): Promise<void> {
-    const requestData = { chatId: chatId };
+    const requestData = { chatId };
     const xhr = await ChatsApi.deleteChat(requestData);
     if (xhr.status === 200) {
       this.refreshChats();
@@ -47,8 +47,8 @@ class ChatController {
   }
 
   private _addChatUrl(title: string, chatId: number): void {
-    const newChatUrl = Chat.url + '/' + chatId;
-    const newChat = new Chat({chatId: chatId, title: title});
+    const newChatUrl = `${Chat.url}/${chatId}`;
+    const newChat = new Chat({ chatId, title });
     router.use(newChatUrl, newChat);
   }
 }

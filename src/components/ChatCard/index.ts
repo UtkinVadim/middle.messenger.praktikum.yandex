@@ -33,7 +33,7 @@ export default class ChatCard extends Block {
     props.events.click = function onClick(event: PointerEvent) {
       event.preventDefault();
       event.stopPropagation();
-      const path = Chat.url + '/' + props.id;
+      const path = `${Chat.url}/${props.id}`;
       router.go(path);
     };
 
