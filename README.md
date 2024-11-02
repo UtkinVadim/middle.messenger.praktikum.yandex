@@ -21,6 +21,12 @@
 - [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) `^36.0.1` — конфигурация Stylelint, проверяет на соответствие стандартному стилю кодирования.
 - [stylelint-scss](https://github.com/stylelint-scss/stylelint-scss) `^6.4.1` — набор правил для проверки SCSS синтаксиса.
 
+### Функциональность
+
+- Добавлен роутинг в проект. Он поддерживает добавление маршрутов и навигацию между ними, используя History API.
+- Внедрен HTTP API чатов. Он включает методы для авторизации, работу с информацией пользователя, работу с чатами.
+- Подключен WebSocket для работы с real-time сообщениями. Поддерживается отправка и прием сообщений, а также обработка ошибок и закрытие соединения.
+
 ### Dependencies
 
 - [@types/uuid](https://www.npmjs.com/package/@types/uuid) `^10.0.0` — типы TypeScript для библиотеки UUID.
@@ -29,7 +35,6 @@
 - [Sass](https://sass-lang.com/) `^1.77.8` — препроцессор для CSS.
 - [UUID](https://www.npmjs.com/package/uuid) `^10.0.0` — для генерации уникальных случайных идентификаторов.
 - [Vite](https://vitejs.dev/) `^5.3.1` — инструмент для развёртывания и сборки.
-
 
 ### Установка
 
@@ -51,4 +56,3 @@ npm run dev
 ### [>>> Ссылка на Netlify <<<](https://yap-messenger.netlify.app/)
 
 ### [>>> Ссылка на Figma <<<](https://www.figma.com/design/Pso9dZJBvmmAFRbK6mquAT/Messenger?node-id=6-59&t=tLfgNUe6T19CISOa-1)
-
