@@ -6,6 +6,7 @@ import type { PropsAndChildren } from '../../types/Block.d.ts';
 import BackButton from '../../components/BackButton/index.ts';
 import SendButton from '../../components/SendButton/index.ts';
 import ChatMessage from '../../components/ChatMessage/index.ts';
+import LastChats from '../LastChats/index.ts';
 
 interface IPropsAndChildrenChat extends PropsAndChildren {
   chatId: number;
@@ -20,7 +21,7 @@ export default class Chat extends Block {
     const props = {
       ...propsAndChildren,
       sendButton: new SendButton(),
-      backButton: new BackButton(),
+      backButton: new BackButton({backUrl: LastChats.url}),
       attr: {
         class: 'chat',
       },
