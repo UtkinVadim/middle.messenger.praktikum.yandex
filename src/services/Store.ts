@@ -1,7 +1,7 @@
 import EventBus from './EventBus.ts';
 import type { Indexed } from '../types/common.d.ts';
+import type { MessageData } from '../types/Chat.d.ts';
 import ChatCard from '../components/ChatCard/index.ts';
-import ChatMessage from '../components/ChatMessage/index.ts';
 import type { userInfoData } from '../types/api/AuthApi.d.ts';
 
 // eslint-disable-next-line no-shadow
@@ -15,7 +15,7 @@ export enum StoreEvents {
 
 interface ChatHistory {
   chatId: number;
-  messages: Array<ChatMessage>;
+  messages: Array<MessageData>;
 }
 
 interface StoreData extends Indexed {
@@ -25,7 +25,7 @@ interface StoreData extends Indexed {
 }
 
 class Store extends EventBus {
-  private _state: StoreData = {
+  private _state: StoreData = this._loadState() || {
     chats: [],
     userInfo: {
       id: 0,
@@ -69,9 +69,10 @@ class Store extends EventBus {
     this.emit(event);
   }
 
-  public saveMessageInHistory(chatId: number, message: ChatMessage): void {
+  public saveMessageInHistory(chatId: number, message: MessageData): void {
     const chatHistory = this.getChatHistory(chatId);
     chatHistory.messages.push(message);
+    this._saveState();
     const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
     this.emit(event);
   }
@@ -85,8 +86,18 @@ class Store extends EventBus {
         messages: []
       };
       this._state.chatsHistory.push(chatHistory);
+      this._saveState();
     }
     return chatHistory;
+  }
+
+  private _saveState(): void {
+    localStorage.setItem('storeState', JSON.stringify(this._state));
+  }
+
+  private _loadState(): StoreData | null {
+    const state = localStorage.getItem('storeState');
+    return state ? JSON.parse(state) : null;
   }
 }
 

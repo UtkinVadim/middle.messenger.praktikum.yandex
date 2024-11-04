@@ -3,7 +3,6 @@ import './style.scss';
 import tpl from './tpl.ts';
 import store from '../../services/Store.ts';
 import Block from '../../services/Block.ts';
-import ChatMessage from '../ChatMessage/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenSendButton extends PropsAndChildren {
@@ -35,21 +34,11 @@ export default class SendButton extends Block {
             return;
           }
 
-          const newMessage = new ChatMessage({
+          const messageData = {
             text: message,
             type: 'sent',
-          });
-
-          const messages = document.querySelector('.chat__messages');
-
-          if (!messages) {
-            return;
           }
-
-          messages.append(newMessage.getContent());
-          messageInput.value = '';
-
-          store.saveMessageInHistory(props.chatId, newMessage);
+          store.saveMessageInHistory(props.chatId, messageData);
         },
       },
     });
