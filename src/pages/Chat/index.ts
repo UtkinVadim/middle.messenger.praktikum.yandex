@@ -7,6 +7,7 @@ import BackButton from '../../components/BackButton/index.ts';
 import SendButton from '../../components/SendButton/index.ts';
 import ChatMessage from '../../components/ChatMessage/index.ts';
 import LastChats from '../LastChats/index.ts';
+import store, { StoreEvents } from '../../services/Store.ts';
 
 interface IPropsAndChildrenChat extends PropsAndChildren {
   chatId: number;
@@ -20,17 +21,27 @@ export default class Chat extends Block {
   constructor(propsAndChildren: IPropsAndChildrenChat, tagName: string = 'div') {
     const props = {
       ...propsAndChildren,
-      sendButton: new SendButton(),
-      backButton: new BackButton({backUrl: LastChats.url}),
+      sendButton: new SendButton({ chatId: propsAndChildren.chatId }),
+      backButton: new BackButton({ backUrl: LastChats.url }),
+      messages: store.getChatHistory(propsAndChildren.chatId).messages,
       attr: {
         class: 'chat',
       },
     };
 
     super(tagName, props);
+
+    const event = `${StoreEvents.ChatMessagesUpdated}_${props.chatId}`;
+    store.on(event, () => {
+      this._updateChatMessages();
+    });
   }
 
   render() {
     return this.compile(tpl);
+  }
+
+  private _updateChatMessages() {
+    this.setProps({messages: store.getChatHistory(this._props.chatId).messages});
   }
 }

@@ -1,6 +1,7 @@
 import EventBus from './EventBus.ts';
 import type { Indexed } from '../types/common.d.ts';
 import ChatCard from '../components/ChatCard/index.ts';
+import ChatMessage from '../components/ChatMessage/index.ts';
 import type { userInfoData } from '../types/api/AuthApi.d.ts';
 
 // eslint-disable-next-line no-shadow
@@ -9,11 +10,18 @@ export enum StoreEvents {
   UserInfoUpdated = 'userInfoUpdated',
   AvatarUpdated = 'avatarUpdated',
   UserListUpdated = 'userListUpdated',
+  ChatMessagesUpdated = 'chatMessagesUpdated'
+}
+
+interface ChatHistory {
+  chatId: number;
+  messages: Array<ChatMessage>;
 }
 
 interface StoreData extends Indexed {
   chats: Array<ChatCard>;
   userInfo: userInfoData;
+  chatsHistory: Array<ChatHistory>;
 }
 
 class Store extends EventBus {
@@ -29,6 +37,7 @@ class Store extends EventBus {
       avatar: null,
       email: '',
     },
+    chatsHistory: []
   };
 
   public getState(): StoreData {
@@ -58,6 +67,26 @@ class Store extends EventBus {
   public updateUserList(chatId: string): void {
     const event = `${StoreEvents.UserListUpdated}_${chatId}`;
     this.emit(event);
+  }
+
+  public saveMessageInHistory(chatId: number, message: ChatMessage): void {
+    const chatHistory = this.getChatHistory(chatId);
+    chatHistory.messages.push(message);
+    const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
+    this.emit(event);
+  }
+
+  public getChatHistory(chatId: number): ChatHistory {
+    let chatHistory;
+    chatHistory = this._state.chatsHistory.find(chat => chat.chatId === chatId);
+    if (!chatHistory) {
+      chatHistory = {
+        chatId: chatId,
+        messages: []
+      };
+      this._state.chatsHistory.push(chatHistory);
+    }
+    return chatHistory;
   }
 }
 
