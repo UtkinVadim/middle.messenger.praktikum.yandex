@@ -56,7 +56,9 @@ class Store extends EventBus {
 
   public updateUserInfo(userInfo: userInfoData): void {
     this._state.userInfo = userInfo;
-    this.emit(StoreEvents.UserInfoUpdated);
+    if (this.eventExist(StoreEvents.UserInfoUpdated)) {
+      this.emit(StoreEvents.UserInfoUpdated);
+    }
   }
 
   public updateUserAvatar(path: string): void {

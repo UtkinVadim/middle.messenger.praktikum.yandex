@@ -9,29 +9,44 @@ import type { SignInData, signUpData } from '../types/api/AuthApi.d.ts';
 
 class LoginController {
   public async signIn(formData: SignInData): Promise<void> {
-    const xhr = await authApi.signIn(formData);
+    try {
+      const xhr = await authApi.signIn(formData);
 
-    if (xhr.status === 200 || (xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system')) {
-      await this._setUserData();
-      router.go(LastChats.url);
-    } else {
-      this._setError(xhr);
+      if (xhr.status === 200 || (xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system')) {
+        await this._setUserData();
+        router.go(LastChats.url);
+      } else {
+        this._setError(xhr);
+      }
+    } catch (error) {
+      console.error('Error in signIn:', error);
+      throw error;
     }
   }
 
   public async signUp(formData: signUpData): Promise<void> {
-    const xhr = await authApi.signUp(formData);
+    try {
+      const xhr = await authApi.signUp(formData);
 
-    if (xhr.status === 200) {
-      router.go(LastChats.url);
-    } else {
-      this._setError(xhr);
+      if (xhr.status === 200) {
+        router.go(LastChats.url);
+      } else {
+        this._setError(xhr);
+      }
+    } catch (error) {
+      console.error('Error in signUp:', error);
+      throw error;
     }
   }
 
   public async logout(): Promise<void> {
-    await authApi.logout();
-    router.go(SignIn.url);
+    try {
+      await authApi.logout();
+      router.go(SignIn.url);
+    } catch (error) {
+      console.error('Error in logout:', error);
+      throw error;
+    }
   }
 
   private async _setUserData(): Promise<void> {
