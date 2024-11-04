@@ -1,16 +1,15 @@
 import store from '../services/Store.ts';
+import BaseController from './BaseController.ts';
 import avatarApi from '../services/api/AvatarApi.ts';
 
-class AvatarController {
+class AvatarController extends BaseController {
   public async setNewAvatar(file: File): Promise<undefined> {
     try {
       const resizedFile = await this.resizeImage(file, 130, 130);
       const data = new FormData();
       data.append('avatar', resizedFile);
       const xhr = await avatarApi.changeAvatar(data);
-      if (xhr.status !== 200) {
-        throw new Error('Unable to set avatar');
-      }
+      this._checkResponse(xhr, 'Unable to set avatar');
       const responseData = JSON.parse(xhr.response);
       store.updateUserAvatar(responseData.avatar);
     } catch (error) {
