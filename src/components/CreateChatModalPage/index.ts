@@ -1,12 +1,12 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
-import Button from '../Button';
-import Input from '../InputWithLabel/Input';
+import Button from '../Button/index.ts';
 import Block from '../../services/Block.ts';
 import InputForm from '../InputForm/index.ts';
-import InputWithLabel from '../InputWithLabel';
 import CloseButton from './CloseButton/index.ts';
+import Input from '../InputWithLabel/Input/index.ts';
+import InputWithLabel from '../InputWithLabel/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import chatController from '../../controllers/ChatController.ts';
 
@@ -33,7 +33,7 @@ export default class CreateChatModalPage extends Block {
           label: 'Chat name',
           input: new Input({
             id: 'create_chat_modal_page__chatName',
-            editable: true
+            editable: true,
           }),
         }),
       ],

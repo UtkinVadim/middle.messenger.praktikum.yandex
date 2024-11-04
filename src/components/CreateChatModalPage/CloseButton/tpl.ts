@@ -1,3 +1,3 @@
-const tpl: string = `&times;`;
+const tpl: string = '&times;';
 
 export default tpl;
