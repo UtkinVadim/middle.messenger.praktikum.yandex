@@ -5,7 +5,7 @@ import chatsApi from '../services/api/ChatsApi.ts';
 import ChatCard from '../components/ChatCard/index.ts';
 
 class ChatController {
-  public async createChat(title: string = 'New chat'): Promise<void> {
+  public async createChat(title: string): Promise<void> {
     const requestData = { title };
     const xhr = await chatsApi.createChat(requestData);
     if (xhr.status !== 200) {
