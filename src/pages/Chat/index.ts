@@ -20,7 +20,6 @@ export default class Chat extends Block {
   public static url: string = '/chat';
 
   constructor(propsAndChildren: IPropsAndChildrenChat, tagName: string = 'div') {
-
     const props = {
       ...propsAndChildren,
       sendButton: new SendButton({ chatId: propsAndChildren.chatId }),
@@ -49,6 +48,6 @@ export default class Chat extends Block {
   }
 
   private _updateChatMessages() {
-    this.setProps({messages: Chat._getMessagesFromHistory(this._props.chatId)});
+    this.setProps({ messages: Chat._getMessagesFromHistory(this._props.chatId) });
   }
 }

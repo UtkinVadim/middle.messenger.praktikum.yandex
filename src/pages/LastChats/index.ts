@@ -9,7 +9,7 @@ import ChatController from '../../controllers/ChatController.ts';
 import LogoutButton from '../../components/LogoutButton/index.ts';
 import SettingsButton from '../../components/SettingsButton/index.ts';
 import CreateChatButton from '../../components/CreateChatButton/index.ts';
-import CreateChatModalPage from '../../components/CreateChatModalPage';
+import CreateChatModalPage from '../../components/CreateChatModalPage/index.ts';
 
 interface IPropsAndChildrenLastChats extends PropsAndChildren {
   chatCards?: Array<ChatCard>;

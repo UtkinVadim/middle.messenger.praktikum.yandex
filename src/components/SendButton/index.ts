@@ -37,7 +37,7 @@ export default class SendButton extends Block {
           const messageData = {
             text: message,
             type: 'sent',
-          }
+          };
           store.saveMessageInHistory(props.chatId, messageData);
         },
       },

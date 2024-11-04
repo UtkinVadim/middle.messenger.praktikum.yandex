@@ -37,7 +37,7 @@ class Store extends EventBus {
       avatar: null,
       email: '',
     },
-    chatsHistory: []
+    chatsHistory: [],
   };
 
   public getState(): StoreData {
@@ -81,11 +81,11 @@ class Store extends EventBus {
 
   public getChatHistory(chatId: number): ChatHistory {
     let chatHistory;
-    chatHistory = this._state.chatsHistory.find(chat => chat.chatId === chatId);
+    chatHistory = this._state.chatsHistory.find((chat) => chat.chatId === chatId);
     if (!chatHistory) {
       chatHistory = {
-        chatId: chatId,
-        messages: []
+        chatId,
+        messages: [],
       };
       this._state.chatsHistory.push(chatHistory);
       this._saveState();

@@ -31,7 +31,7 @@ export default class EventBus {
     });
   }
 
-  eventExist(event: string): Boolean {
+  eventExist(event: string): boolean {
     return Boolean(this._listeners[event]);
   }
 }
