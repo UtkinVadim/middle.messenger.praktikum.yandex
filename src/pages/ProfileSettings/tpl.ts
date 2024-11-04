@@ -5,7 +5,7 @@ const tpl: string = `
     {{{avatar}}}
 
     <div class="profile_settings__username">
-        <strong>Name</strong>
+        <strong>{{{userName}}}</strong>
     </div>
 
     {{{inputForm}}}
