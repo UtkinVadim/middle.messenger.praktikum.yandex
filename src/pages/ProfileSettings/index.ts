@@ -10,6 +10,7 @@ import BackButton from '../../components/BackButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import userController from '../../controllers/UserController.ts';
 import type { userInfoData } from '../../types/api/AuthApi.d.ts';
+import UserController from '../../controllers/UserController.ts';
 import Input from '../../components/InputWithLabel/Input/index.ts';
 import type { changeUserData } from '../../types/api/UserApi.d.ts';
 import InputWithLabel from '../../components/InputWithLabel/index.ts';
@@ -119,6 +120,7 @@ export default class ProfileSettings extends Block {
         onSubmit: ProfileSettings.onSubmit,
       }),
       avatar: new ProfileSettingsAvatar(),
+      userName: 'Name'
     };
 
     super(tagName, props);
@@ -134,6 +136,8 @@ export default class ProfileSettings extends Block {
         phone: phoneInput,
       };
 
+      this.setProps({ userName: userInfo.display_name });
+
       Object.entries(userInfo)
         .forEach(([key, value]) => {
           const input = inputMap[key];
@@ -144,6 +148,11 @@ export default class ProfileSettings extends Block {
           input.setProps(newProps);
         });
     });
+
+    UserController.getUserInfo()
+      .then((userData) => {
+        this.setProps({ userName: userData.display_name });
+      });
   }
 
   render() {

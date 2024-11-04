@@ -1,5 +1,6 @@
 import EventBus from './EventBus.ts';
 import type { Indexed } from '../types/common.d.ts';
+import type { MessageData } from '../types/Chat.d.ts';
 import ChatCard from '../components/ChatCard/index.ts';
 import type { userInfoData } from '../types/api/AuthApi.d.ts';
 
@@ -9,15 +10,22 @@ export enum StoreEvents {
   UserInfoUpdated = 'userInfoUpdated',
   AvatarUpdated = 'avatarUpdated',
   UserListUpdated = 'userListUpdated',
+  ChatMessagesUpdated = 'chatMessagesUpdated'
+}
+
+interface ChatHistory {
+  chatId: number;
+  messages: Array<MessageData>;
 }
 
 interface StoreData extends Indexed {
   chats: Array<ChatCard>;
   userInfo: userInfoData;
+  chatsHistory: Array<ChatHistory>;
 }
 
 class Store extends EventBus {
-  private _state: StoreData = {
+  private _state: StoreData = this._loadState() || {
     chats: [],
     userInfo: {
       id: 0,
@@ -29,6 +37,7 @@ class Store extends EventBus {
       avatar: null,
       email: '',
     },
+    chatsHistory: []
   };
 
   public getState(): StoreData {
@@ -47,7 +56,9 @@ class Store extends EventBus {
 
   public updateUserInfo(userInfo: userInfoData): void {
     this._state.userInfo = userInfo;
-    this.emit(StoreEvents.UserInfoUpdated);
+    if (this.eventExist(StoreEvents.UserInfoUpdated)) {
+      this.emit(StoreEvents.UserInfoUpdated);
+    }
   }
 
   public updateUserAvatar(path: string): void {
@@ -58,6 +69,37 @@ class Store extends EventBus {
   public updateUserList(chatId: string): void {
     const event = `${StoreEvents.UserListUpdated}_${chatId}`;
     this.emit(event);
+  }
+
+  public saveMessageInHistory(chatId: number, message: MessageData): void {
+    const chatHistory = this.getChatHistory(chatId);
+    chatHistory.messages.push(message);
+    this._saveState();
+    const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
+    this.emit(event);
+  }
+
+  public getChatHistory(chatId: number): ChatHistory {
+    let chatHistory;
+    chatHistory = this._state.chatsHistory.find(chat => chat.chatId === chatId);
+    if (!chatHistory) {
+      chatHistory = {
+        chatId: chatId,
+        messages: []
+      };
+      this._state.chatsHistory.push(chatHistory);
+      this._saveState();
+    }
+    return chatHistory;
+  }
+
+  private _saveState(): void {
+    localStorage.setItem('storeState', JSON.stringify(this._state));
+  }
+
+  private _loadState(): StoreData | null {
+    const state = localStorage.getItem('storeState');
+    return state ? JSON.parse(state) : null;
   }
 }
 

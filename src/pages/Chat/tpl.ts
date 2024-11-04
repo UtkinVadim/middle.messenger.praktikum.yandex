@@ -5,7 +5,7 @@ const tpl: string = `
 
         <strong class="chat__header__content__name">{{title}}</strong>
 
-        <img class="chat__header__content__avatar" src="./empty_avatar.svg" alt="Name">
+        <img class="chat__header__content__avatar" src="/empty_avatar.svg" alt="Name">
     </div>
 </div>
 
@@ -18,7 +18,7 @@ const tpl: string = `
     <div class="chat__footer__content">
 
         <div class="chat__footer__add_file">
-            <img src="./clip.svg" alt="Add file">
+            <img src="/clip.svg" alt="Add file">
         </div>
 
         <div class="chat__footer__input_message">

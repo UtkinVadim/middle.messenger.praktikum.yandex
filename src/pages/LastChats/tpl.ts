@@ -1,4 +1,6 @@
 const tpl: string = `
+{{{createChatModalPage}}}
+
 <div class="chat_list_menu">
   {{{settingsButton}}}
   {{{createChatButton}}}

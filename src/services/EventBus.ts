@@ -30,4 +30,8 @@ export default class EventBus {
       listener(...args);
     });
   }
+
+  eventExist(event: string): Boolean {
+    return Boolean(this._listeners[event]);
+  }
 }
