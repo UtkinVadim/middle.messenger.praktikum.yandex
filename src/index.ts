@@ -45,4 +45,3 @@ ChatController.refreshChats(router)
   );
 
 export default router;
-
