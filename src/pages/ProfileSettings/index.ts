@@ -152,6 +152,8 @@ export default class ProfileSettings extends Block {
       .then((userData) => {
         this.setProps({ userName: userData.display_name });
       });
+
+    userController.refreshUserData();
   }
 
   render() {
