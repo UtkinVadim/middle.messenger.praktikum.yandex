@@ -49,5 +49,4 @@ if (window.location.pathname.includes(activeChatPrefix)) {
         router.go(window.location.pathname);
       }
     );
-
 }
