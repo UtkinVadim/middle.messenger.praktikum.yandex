@@ -32,16 +32,15 @@ const router = new Router('.app');
 
 ChatController.refreshChats(router)
   .then(() => {
-      router
-        .use(SignIn.url, signIn)
-        .use(SignUp.url, signUp)
-        .use(error404.url, error404)
-        .use(error500.url, error500)
-        .use(changePassword.url, changePassword)
-        .use(ProfileSettings.url, profileSettings)
-        .use(LastChats.url, lastChats)
-        .start();
-    }
-  );
+    router
+      .use(SignIn.url, signIn)
+      .use(SignUp.url, signUp)
+      .use(error404.url, error404)
+      .use(error500.url, error500)
+      .use(changePassword.url, changePassword)
+      .use(ProfileSettings.url, profileSettings)
+      .use(LastChats.url, lastChats)
+      .start();
+  });
 
 export default router;

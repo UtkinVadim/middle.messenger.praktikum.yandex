@@ -9,6 +9,6 @@ export default class BaseController {
   }
 
   protected _getRouterObject(router: Router | null) {
-   return router ? router : routerInstance;
+    return router || routerInstance;
   }
 }
