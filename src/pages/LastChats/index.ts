@@ -20,7 +20,7 @@ interface IPropsAndChildrenLastChats extends PropsAndChildren {
 }
 
 export default class LastChats extends Block {
-  public static url: string = '/last_chats';
+  public static url: string = '/messenger';
 
   constructor(propsAndChildren: IPropsAndChildrenLastChats = {}, tagName: string = 'main') {
     const props = { ...propsAndChildren };
