@@ -1,4 +1,3 @@
-import Chat from './pages/Chat';
 import Router from './services/Router.ts';
 import SignIn from './pages/SignIn/index.ts';
 import SignUp from './pages/SignUp/index.ts';
@@ -30,23 +29,20 @@ const profileSettings = new ProfileSettings(changePassword);
 const lastChats = new LastChats();
 
 const router = new Router('.app');
-router
-  .use(SignIn.url, signIn)
-  .use(SignUp.url, signUp)
-  .use(error404.url, error404)
-  .use(error500.url, error500)
-  .use(changePassword.url, changePassword)
-  .use(ProfileSettings.url, profileSettings)
-  .use(LastChats.url, lastChats)
-  .start();
+
+ChatController.refreshChats(router)
+  .then(() => {
+      router
+        .use(SignIn.url, signIn)
+        .use(SignUp.url, signUp)
+        .use(error404.url, error404)
+        .use(error500.url, error500)
+        .use(changePassword.url, changePassword)
+        .use(ProfileSettings.url, profileSettings)
+        .use(LastChats.url, lastChats)
+        .start();
+    }
+  );
 
 export default router;
 
-const activeChatPrefix = `${Chat.url}/`;
-if (window.location.pathname.includes(activeChatPrefix)) {
-  ChatController.refreshChats()
-    .then(() => {
-        router.go(window.location.pathname);
-      }
-    );
-}
