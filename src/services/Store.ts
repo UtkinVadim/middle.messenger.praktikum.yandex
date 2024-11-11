@@ -82,7 +82,9 @@ class Store extends EventBus {
 
   public setChatHistory(chatId: number, messages: Array<OldMessageData>) {
     const chatHistory = this.getChatHistory(chatId);
-    chatHistory.messages = messages.map((oldMessageData) => ({ text: oldMessageData.content, type: 'sent' }));
+    chatHistory.messages = messages
+      .reverse()
+      .map((oldMessageData) => ({ text: oldMessageData.content, type: 'sent' }));
     const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
     this.emit(event);
   }
