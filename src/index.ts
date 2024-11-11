@@ -40,7 +40,9 @@ export default router;
 LoginController.userLoggedIn().then((userLoggedIn) => {
   if (userLoggedIn) {
     UserController.refreshUserData().then(() => {
-      ChatController.refreshChats();
+      ChatController.refreshChats().then(() => {
+        router.go(window.location.pathname);
+      });
     });
   } else {
     router.go(SignIn.url);
