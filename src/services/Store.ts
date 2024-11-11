@@ -3,6 +3,7 @@ import type { Indexed } from '../types/common.d.ts';
 import type { MessageData } from '../types/Chat.d.ts';
 import ChatCard from '../components/ChatCard/index.ts';
 import type { userInfoData } from '../types/api/AuthApi.d.ts';
+import type { OldMessageData } from '../types/WebSocketResponseData.d.ts';
 
 // eslint-disable-next-line no-shadow
 export enum StoreEvents {
@@ -75,6 +76,13 @@ class Store extends EventBus {
     const chatHistory = this.getChatHistory(chatId);
     chatHistory.messages.push(message);
     this._saveState();
+    const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
+    this.emit(event);
+  }
+
+  public setChatHistory(chatId: number, messages: Array<OldMessageData>) {
+    const chatHistory = this.getChatHistory(chatId);
+    chatHistory.messages = messages.map((oldMessageData) => ({ text: oldMessageData.content, type: 'sent' }));
     const event = `${StoreEvents.ChatMessagesUpdated}_${chatId}`;
     this.emit(event);
   }

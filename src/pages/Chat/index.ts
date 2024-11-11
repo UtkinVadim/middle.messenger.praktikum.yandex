@@ -9,11 +9,13 @@ import SendButton from '../../components/SendButton/index.ts';
 import BackButton from '../../components/BackButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 import ChatMessage from '../../components/ChatMessage/index.ts';
+import ChatWebsocketController from '../../controllers/ChatWebsocketController.ts';
 
 interface IPropsAndChildrenChat extends PropsAndChildren {
   chatId: number;
   title: string;
   messages?: Array<ChatMessage>;
+  wsController?: ChatWebsocketController
 }
 
 export default class Chat extends Block {
@@ -22,7 +24,6 @@ export default class Chat extends Block {
   constructor(propsAndChildren: IPropsAndChildrenChat, tagName: string = 'div') {
     const props = {
       ...propsAndChildren,
-      sendButton: new SendButton({ chatId: propsAndChildren.chatId }),
       backButton: new BackButton({ backUrl: LastChats.url }),
       messages: Chat._getMessagesFromHistory(propsAndChildren.chatId),
       attr: {
@@ -36,6 +37,8 @@ export default class Chat extends Block {
     store.on(event, () => {
       this._updateChatMessages();
     });
+
+    this._connectToWebsocket();
   }
 
   render() {
@@ -49,5 +52,14 @@ export default class Chat extends Block {
 
   private _updateChatMessages() {
     this.setProps({ messages: Chat._getMessagesFromHistory(this._props.chatId) });
+  }
+
+  private async _connectToWebsocket() {
+    const wsTransport = await ChatWebsocketController.connectToWebsocket(this._props.chatId);
+    const wsController = new ChatWebsocketController(wsTransport);
+    const sendButton = new SendButton({ chatId: this._props.chatId, wsController });
+    this.setProps({ wsController, sendButton });
+
+    wsController.getMessages();
   }
 }

@@ -1,6 +1,6 @@
+import router from '../index.ts';
 import store from '../services/Store.ts';
 import Chat from '../pages/Chat/index.ts';
-import Router from '../services/Router.ts';
 import BaseController from './BaseController.ts';
 import chatsApi from '../services/api/ChatsApi.ts';
 import ChatCard from '../components/ChatCard/index.ts';
@@ -14,8 +14,7 @@ class ChatController extends BaseController {
 
       const chatId = JSON.parse(xhr.response).id;
 
-      const routerObject = this._getRouterObject(null);
-      this._addChatUrl(title, chatId, routerObject);
+      this._addChatUrl(title, chatId);
 
       const chatCard = new ChatCard({
         id: chatId,
@@ -41,16 +40,15 @@ class ChatController extends BaseController {
     }
   }
 
-  public async refreshChats(router: Router | null = null) {
+  public async refreshChats() {
     try {
       const xhr = await chatsApi.getChats();
       this._checkResponse(xhr, 'Getting chats error');
       const response = JSON.parse(xhr.response);
 
-      const routerObject = this._getRouterObject(router);
       const chatCards = response.map((chatData: any) => {
         const chatCard = new ChatCard(chatData);
-        this._addChatUrl(chatData.title, chatData.id, routerObject);
+        this._addChatUrl(chatData.title, chatData.id);
         return chatCard;
       });
 
@@ -61,13 +59,13 @@ class ChatController extends BaseController {
     }
   }
 
-  private _addChatUrl(title: string, chatId: number, routerObject: Router): void {
+  private _addChatUrl(title: string, chatId: number): void {
     const newChatUrl = `${Chat.url}/${chatId}`;
     const newChat = new Chat({
       chatId,
       title,
     });
-    routerObject.use(newChatUrl, newChat);
+    router.use(newChatUrl, newChat);
   }
 }
 
