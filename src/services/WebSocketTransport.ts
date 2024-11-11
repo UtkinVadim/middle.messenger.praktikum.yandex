@@ -1,18 +1,22 @@
-const socket = new WebSocket('wss://ws.postman-echo.com/raw');
-
 export default class WebSocketTransport {
-  constructor() {
-    socket.addEventListener('message', WebSocketTransport._handleMessage);
+  protected _base_url: string = 'wss://ya-praktikum.tech/ws/chats';
+
+  public socket: WebSocket;
+
+  constructor(userId: number, chatId: number, token: string) {
+    this.socket = new WebSocket(`${this._base_url}/${userId}/${chatId}/${token}`);
+
+    this.socket.addEventListener('open', () => {
+      setInterval(this._ping.bind(this), 10000);
+    });
   }
 
-  private static _handleMessage(event: MessageEvent): void {
-    // eslint-disable-next-line
-    console.log('Сообщение от сервера:', event.data);
+  private _ping() {
+    const data = JSON.stringify({ type: 'ping' });
+    this.socket.send(data);
   }
 
-  public static send(message: string): void {
-    if (socket.readyState === WebSocket.OPEN) {
-      socket.send(message);
-    }
+  public send(data: string) {
+    this.socket.send(data);
   }
 }

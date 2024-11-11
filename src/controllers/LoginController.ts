@@ -12,7 +12,7 @@ class LoginController {
     try {
       const xhr = await authApi.signIn(formData);
 
-      if (xhr.status === 200 || (xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system')) {
+      if (this._loggedIn(xhr)) {
         await this._setUserData();
         router.go(LastChats.url);
       } else {
@@ -46,6 +46,23 @@ class LoginController {
     } catch (error) {
       console.error('Error in logout:', error);
       throw error;
+    }
+  }
+
+  public async userLoggedIn(): Promise<boolean> {
+    try {
+      const xhr = await authApi.getUserInfo();
+      console.log();
+      if (xhr.status === 401) {
+        return false;
+      } if (this._loggedIn(xhr)) {
+        return true;
+      }
+      console.error(`Unexpected status in userLoggedIn: ${xhr.response}`);
+      return false;
+    } catch (e) {
+      console.error('Error in userLoggedIn: ', e);
+      return false;
     }
   }
 
@@ -85,6 +102,10 @@ class LoginController {
     }
 
     errorTextBlock.style.display = 'block';
+  }
+
+  private _loggedIn(xhr: XMLHttpRequest) {
+    return xhr.status === 200 || (xhr.status === 400 && JSON.parse(xhr.response).reason === 'User already in system');
   }
 }
 

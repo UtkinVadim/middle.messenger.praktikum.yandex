@@ -1,12 +1,13 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
-import store from '../../services/Store.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import ChatWebsocketController from '../../controllers/ChatWebsocketController.ts';
 
 interface IPropsAndChildrenSendButton extends PropsAndChildren {
   chatId: number;
+  wsController: ChatWebsocketController;
 }
 
 export default class SendButton extends Block {
@@ -34,11 +35,7 @@ export default class SendButton extends Block {
             return;
           }
 
-          const messageData = {
-            text: message,
-            type: 'sent',
-          };
-          store.saveMessageInHistory(props.chatId, messageData);
+          props.wsController.sendMessage(message);
         },
       },
     });
