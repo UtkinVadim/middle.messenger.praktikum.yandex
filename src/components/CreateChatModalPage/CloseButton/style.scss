@@ -1,0 +1,13 @@
+.create_chat_modal_page__close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.create_chat_modal_page__close:hover,
+.create_chat_modal_page__close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

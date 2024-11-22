@@ -1,0 +1,30 @@
+@import "../../styles/mixins";
+@import "../../styles/blocks/profile";
+
+.profile_settings__avatar {
+  position: relative;
+  display: inline-block;
+}
+
+.profile_settings__avatar_overlay {
+  @extend %on-center-one-column;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000099;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+  transition: .5s ease;
+  color: white;
+}
+
+.profile_settings__avatar:hover {
+  .profile_settings__avatar_overlay {
+    opacity: 1;
+  }
+}

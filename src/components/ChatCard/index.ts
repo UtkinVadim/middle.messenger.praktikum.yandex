@@ -1,14 +1,20 @@
 import './style.scss';
 
 import tpl from './tpl.ts';
-import ChatCardMessage from './Message/index.ts';
+import router from '../../index.ts';
+import Users from './Users/index.ts';
+import AddUser from './AddUser/index.ts';
 import Block from '../../services/Block.ts';
+import Chat from '../../pages/Chat/index.ts';
+import DeleteChatButton from './DeleteChatButton/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
 
 interface IPropsAndChildrenChatCard extends PropsAndChildren {
-    companion: string;
-    lastMessages: Array<ChatCardMessage>;
-    newMessagesCount?: number;
+  id : number;
+  title: string;
+  users?: Users;
+  unread_count?: number;
+  deleteChatButton?: DeleteChatButton
 }
 
 export default class ChatCard extends Block {
@@ -19,6 +25,22 @@ export default class ChatCard extends Block {
     }
 
     props.attr.class = 'chat_card';
+
+    if (!props.events) {
+      props.events = {};
+    }
+
+    props.events.click = function onClick(event: PointerEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+      const path = `${Chat.url}/${props.id}`;
+      router.go(path);
+    };
+
+    const chatIdProp = { chatId: props.id };
+    props.deleteChatButton = new DeleteChatButton(chatIdProp);
+    props.users = new Users(chatIdProp);
+    props.addUser = new AddUser(chatIdProp);
 
     super(tagName, props);
   }

@@ -1,5 +1,5 @@
 const tpl: string = `
-{{{ text }}}
+<img src="./logout.svg" alt="Logout" />
 `;
 
 export default tpl;

@@ -19,6 +19,9 @@
     "no-underscore-dangle": "off",
     "max-len": [2, 120],
     "no-use-before-define": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "eol-last": ["error", "always"],
+    "class-methods-use-this": "off",
+    "no-console": "off"
   }
 }

@@ -1,3 +1,5 @@
 const tpl: string = `
-<a href="{{ url }}">{{ title }}</a>`;
+Change avatar
+`;
+
 export default tpl;

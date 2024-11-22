@@ -2,11 +2,16 @@ import './style.scss';
 
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
-import ChatMessage from '../ChatMessage/index.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import ChatWebsocketController from '../../controllers/ChatWebsocketController.ts';
+
+interface IPropsAndChildrenSendButton extends PropsAndChildren {
+  chatId: number;
+  wsController: ChatWebsocketController;
+}
 
 export default class SendButton extends Block {
-  constructor(tagName: string = 'button', propsAndChildren: PropsAndChildren = {}) {
+  constructor(propsAndChildren: IPropsAndChildrenSendButton, tagName: string = 'button') {
     const props = { ...propsAndChildren };
     if (!props.attr) {
       props.attr = {};
@@ -30,19 +35,7 @@ export default class SendButton extends Block {
             return;
           }
 
-          const newMessage = new ChatMessage({
-            text: message,
-            type: 'sent',
-          });
-
-          const messages = document.querySelector('.chat__messages');
-
-          if (!messages) {
-            return;
-          }
-
-          messages.append(newMessage.getContent());
-          messageInput.value = '';
+          props.wsController.sendMessage(message);
         },
       },
     });

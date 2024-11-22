@@ -1,29 +1,23 @@
 import tpl from './tpl.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
+import LoginController from '../../controllers/LoginController.ts';
 
-interface IPropsAndChildrenLink extends PropsAndChildren {
-    title: string;
-    contentPage: Block;
-}
-
-export default class Link extends Block {
-  constructor(propsAndChildren: IPropsAndChildrenLink, tagName: string = 'li') {
+export default class LogoutButton extends Block {
+  constructor(propsAndChildren: PropsAndChildren, tagName: string = 'button') {
     const props = { ...propsAndChildren };
     if (!props.events) {
       props.events = {};
     }
-
-    props.events.click = function redirect(event: PointerEvent) {
-      window.page.setProps({ content: props.contentPage });
+    props.events.click = function onClick(event: PointerEvent) {
       event.preventDefault();
       event.stopPropagation();
+      LoginController.logout();
     };
-
     super(tagName, props);
   }
 
-  render() {
+  public render() {
     return this.compile(tpl);
   }
 }
