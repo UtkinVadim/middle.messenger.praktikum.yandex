@@ -1,13 +1,13 @@
+import { v4 as makeUUID } from 'uuid';
+import Handlebars from 'handlebars';
+import EventBus from './EventBus.ts';
+import type { PropsAndChildren } from '../types/Block.d.ts';
+
 declare global {
     interface HTMLElement {
         content: HTMLElement;
     }
 }
-
-import { v4 as makeUUID } from 'uuid';
-import Handlebars from 'handlebars';
-import EventBus from './EventBus.ts';
-import type { PropsAndChildren } from '../types/Block.d.ts';
 
 type BlockEvents = {
   INIT: string,

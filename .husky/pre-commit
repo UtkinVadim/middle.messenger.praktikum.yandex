@@ -1,0 +1,1 @@
+npm-run-all eslint stylelint test
