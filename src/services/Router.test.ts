@@ -57,5 +57,5 @@ describe('Router', () => {
 
     expect(route).to.exist;
     expect(route?.match(pathname)).to.be.true;
-  })
+  });
 });

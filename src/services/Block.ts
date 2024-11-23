@@ -233,7 +233,6 @@ export default abstract class Block {
 
     Object.values(this._children)
       .forEach((child) => {
-        // @ts-ignore
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
         if (stub) {
           stub.replaceWith(child.getContent());
@@ -242,7 +241,6 @@ export default abstract class Block {
 
     Object.entries(this._lists)
       .forEach(([key, child]) => {
-        // @ts-ignore
         const stub = fragment.content.querySelector(`[data-id="__l_${key}"]`);
 
         if (!stub) {
@@ -253,18 +251,14 @@ export default abstract class Block {
 
         child.forEach((item) => {
           if (item instanceof Block) {
-            // @ts-ignore
             listContent.content.append(item.getContent());
           } else {
-            // @ts-ignore
             listContent.content.append(`${item}`);
           }
         });
 
-        // @ts-ignore
         stub.replaceWith(listContent.content);
       });
-    // @ts-ignore
     return fragment.content;
   }
 

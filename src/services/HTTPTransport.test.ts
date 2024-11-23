@@ -5,10 +5,9 @@ import { createSandbox, SinonStub } from 'sinon';
 import HTTPTransport from './HTTPTransport.ts';
 
 describe('HTTP Transport', () => {
-
   describe('Transforming an object into a query', () => {
     it('should transform object to query', () => {
-      const query = {a: '1', b: '2'};
+      const query = { a: '1', b: '2' };
 
       const result = HTTPTransport.queryStringify(query);
       const expected = '?a=1&b=2';
@@ -45,44 +44,44 @@ describe('HTTP Transport', () => {
 
     it('should set request method to "get"', () => {
       const someUrl = '/get_request';
-      const someHeaders = {a: '1', b: '2'};
+      const someHeaders = { a: '1', b: '2' };
 
       http.get(someUrl, { headers: someHeaders });
 
-      const expectedData = {headers: someHeaders, method: 'GET'};
+      const expectedData = { headers: someHeaders, method: 'GET' };
 
       expect(request).calledWithMatch(someUrl, expectedData);
     });
 
     it('should set request method to "put"', () => {
       const someUrl = '/put_request';
-      const someHeaders = {a: '1', b: '2'};
+      const someHeaders = { a: '1', b: '2' };
 
       http.put(someUrl, { headers: someHeaders });
 
-      const expectedData = {headers: someHeaders, method: 'PUT'};
+      const expectedData = { headers: someHeaders, method: 'PUT' };
 
       expect(request).calledWithMatch(someUrl, expectedData);
     });
 
     it('should set request method to "post"', () => {
       const someUrl = '/post_request';
-      const someHeaders = {a: '1', b: '2'};
+      const someHeaders = { a: '1', b: '2' };
 
       http.post(someUrl, { headers: someHeaders });
 
-      const expectedData = {headers: someHeaders, method: 'POST'};
+      const expectedData = { headers: someHeaders, method: 'POST' };
 
       expect(request).calledWithMatch(someUrl, expectedData);
     });
 
     it('should set request method to "delete"', () => {
       const someUrl = '/delete_request';
-      const someHeaders = {a: '1', b: '2'};
+      const someHeaders = { a: '1', b: '2' };
 
       http.delete(someUrl, { headers: someHeaders });
 
-      const expectedData = {headers: someHeaders, method: 'DELETE'};
+      const expectedData = { headers: someHeaders, method: 'DELETE' };
 
       expect(request).calledWithMatch(someUrl, expectedData);
     });
