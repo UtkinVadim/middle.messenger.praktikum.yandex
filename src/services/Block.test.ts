@@ -11,7 +11,7 @@ describe('Component', () => {
   }
 
   let component: Component;
-  let tpl: string = '<p>{{content}}</p>';
+  const tpl: string = '<p>{{content}}</p>';
 
   beforeEach(() => {
     component = new Component('div', { content: 'Hello' });
