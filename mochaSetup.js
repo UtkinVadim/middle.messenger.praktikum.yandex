@@ -1,9 +1,4 @@
-import { register } from 'node:module';
-import { pathToFileURL } from 'node:url';
-
 import { JSDOM } from 'jsdom';
-
-register('ts-node/esm', pathToFileURL('./'));
 
 const jsdom = new JSDOM('<body></body>', {
   url: 'https://example.org',
