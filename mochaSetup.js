@@ -2,13 +2,8 @@ import { register } from 'node:module';
 import { pathToFileURL } from 'node:url';
 
 import { JSDOM } from 'jsdom';
-import hook from 'css-modules-require-hook';
 
 register('ts-node/esm', pathToFileURL('./'));
-
-hook({
-  extensions: ['.scss'],
-});
 
 const jsdom = new JSDOM('<body></body>', {
   url: 'https://example.org',
