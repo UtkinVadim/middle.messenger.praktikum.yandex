@@ -1,11 +1,8 @@
 import Route from './Route.ts';
 import Block from './Block.ts';
-import router from '../index.ts';
 import authApi from './api/AuthApi.ts';
-import SignIn from '../pages/SignIn/index.ts';
-import SignUp from '../pages/SignUp/index.ts';
 
-const unauthorizedLinks = [SignIn.url, SignUp.url];
+const unauthorizedLinks = ['/', '/sign-up'];
 
 export default class Router {
   public routes: Route[];
@@ -46,7 +43,7 @@ export default class Router {
       authApi.getUserInfo()
         .then((xhr) => {
           if (xhr.status === 401) {
-            router.go(SignIn.url);
+            this.go('/');
           } else {
             route.render();
           }
@@ -54,6 +51,8 @@ export default class Router {
     } else {
       route.render();
     }
+
+    route.render();
   }
 
   public go(pathname: string): void {
