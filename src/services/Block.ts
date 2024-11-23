@@ -1,3 +1,9 @@
+declare global {
+    interface HTMLElement {
+        content: HTMLElement;
+    }
+}
+
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus.ts';
