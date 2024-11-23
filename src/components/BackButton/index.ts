@@ -4,7 +4,6 @@ import tpl from './tpl.ts';
 import router from '../../index.ts';
 import Block from '../../services/Block.ts';
 import type { PropsAndChildren } from '../../types/Block.d.ts';
-import * as readline from 'node:readline';
 
 interface IPropsAndChildrenBackButton extends PropsAndChildren {
   backUrl?: string;
