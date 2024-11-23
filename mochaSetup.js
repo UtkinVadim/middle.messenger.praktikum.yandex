@@ -1,19 +1,17 @@
-import { register } from "node:module";
-import { pathToFileURL } from "node:url";
+import { register } from 'node:module';
+import { pathToFileURL } from 'node:url';
 
-register("ts-node/esm", pathToFileURL("./"));
-
-import saas from 'node-sass';
 import { JSDOM } from 'jsdom';
 import hook from 'css-modules-require-hook';
 
+register('ts-node/esm', pathToFileURL('./'));
+
 hook({
   extensions: ['.scss'],
-  preprocessCss: data => saas.renderSync()
-})
+});
 
 const jsdom = new JSDOM('<body></body>', {
-  url: 'https://example.org'
+  url: 'https://example.org',
 });
 
 global.window = jsdom.window;
