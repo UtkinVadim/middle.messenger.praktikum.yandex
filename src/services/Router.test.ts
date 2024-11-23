@@ -3,16 +3,13 @@ import { expect } from 'chai';
 
 import Block from './Block.ts';
 import Router from './Router.ts';
-import tpl from '../components/ChatMessage/tpl.ts';
 
 describe('Router', () => {
   let router: Router;
 
   class Component extends Block {
-    protected tpl: string = '<div></div>>';
-
     render() {
-      return this.compile(tpl);
+      return this.compile('<div></div>>');
     }
   }
 
