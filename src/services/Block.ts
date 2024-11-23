@@ -3,6 +3,12 @@ import Handlebars from 'handlebars';
 import EventBus from './EventBus.ts';
 import type { PropsAndChildren } from '../types/Block.d.ts';
 
+declare global {
+    interface HTMLElement {
+        content: HTMLElement;
+    }
+}
+
 type BlockEvents = {
   INIT: string,
   FLOW_RENDER: string,
@@ -259,7 +265,6 @@ export default abstract class Block {
 
         stub.replaceWith(listContent.content);
       });
-
     return fragment.content;
   }
 
